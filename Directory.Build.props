@@ -1,37 +1,40 @@
 <Project>
-  <PropertyGroup>
-    <DeveloperBuildCoreTfms>net6.0</DeveloperBuildCoreTfms>
-    <StandardTfms>netstandard2.0;net45;</StandardTfms>
-    <Version>1.7.0.1</Version>
-    <Authors>Du yanming</Authors>
-    <Company>Du yanming</Company>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>
-  </PropertyGroup>
-  <PropertyGroup>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/duyanming/Anno.Core</RepositoryUrl>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <packageTypes>
-      <packageType name="SymbolsPackage"/>
-    </packageTypes>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0-beta-20204-02">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="$(SolutionDir)logo.png"  Pack="true" PackagePath="\" />
-    <None Include="$(SolutionDir)LICENSE"   Pack="true" PackagePath="\" />
-   </ItemGroup>
+	<PropertyGroup>
+		<DeveloperBuildCoreTfms>net6.0;net45;net40;</DeveloperBuildCoreTfms>
+		<DeveloperBuildCoreTfmsGrpc>net6.0;net461;net45</DeveloperBuildCoreTfmsGrpc>
+		<StandardTfms>netstandard2.0;net45;net40;</StandardTfms>
+		<StandardTfmsGrpc>netstandard2.0;net45;</StandardTfmsGrpc>
+		<Version>1.7.0.1</Version>
+		<Authors>Du yanming</Authors>
+		<Company>Du yanming</Company>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>
+	
+</PropertyGroup>
+	<PropertyGroup>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/duyanming/Anno.Core</RepositoryUrl>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<packageTypes>
+			<packageType name="SymbolsPackage"/>
+		</packageTypes>
+	</PropertyGroup>
+	<PropertyGroup>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0-beta-20204-02">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(SolutionDir)logo.png"  Pack="true" PackagePath="\" />
+		<None Include="$(SolutionDir)LICENSE"   Pack="true" PackagePath="\" />
+	</ItemGroup>
 </Project>

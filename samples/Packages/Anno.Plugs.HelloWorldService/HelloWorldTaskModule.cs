@@ -9,17 +9,20 @@ namespace Anno.Plugs.HelloWorldService
 {
     public class HelloWorldTaskModule : BaseModule
     {
+#if NET40
         [AnnoInfo(Desc = "世界你好啊 async Task<dynamic> SayHelloAsync")]
-        public async Task<dynamic> SayHelloAsync([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        public dynamic SayHelloAsync([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
         {
             dynamic rlt = new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了" };
-            return await Task.FromResult(rlt);
+
+            return (rlt);
         }
         [AnnoInfo(Desc = "世界你好啊Task<dynamic> SayHello")]
-        public Task<dynamic> SayHello([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        public dynamic SayHello([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
         {
             object rlt = new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了" };
-            return Task.FromResult(rlt);
+
+            return (rlt);
         }
         [AnnoInfo(Desc = "" +
             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
@@ -30,14 +33,51 @@ namespace Anno.Plugs.HelloWorldService
              "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
              "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
             "SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello")]
-        public Task<dynamic> ApiDocLengthTest([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        public dynamic ApiDocLengthTest([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
         {
             object rlt = new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了" };
-            return Task.FromResult(rlt);
+
+            return (rlt);
         }
         [AnnoInfo(Desc = "Task<ActionResult> 返回类型测试")]
-        public Task<ActionResult> TaskActionResult() {
+        public ActionResult TaskActionResult()
+        {
+            return new ActionResult(true, "outputData", null, "");
+        }
+#else
+        [AnnoInfo(Desc = "世界你好啊 async Task<dynamic> SayHelloAsync")]
+        public async Task<dynamic> SayHelloAsync([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        {
+            dynamic rlt = new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了" };
+
+            return await Task.FromResult(rlt);
+        }
+        [AnnoInfo(Desc = "世界你好啊Task<dynamic> SayHello")]
+        public async Task<dynamic> SayHello([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        {
+            object rlt = new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了" };
+
+            return await Task.FromResult(rlt);
+        }
+        [AnnoInfo(Desc = "" +
+            "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
+            "SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello")]
+        public async Task<dynamic> ApiDocLengthTest([AnnoInfo(Desc = "称呼")] string name, [AnnoInfo(Desc = "年龄")] int age)
+        {
+            object rlt = new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了" };
+
+            return await Task.FromResult(rlt);
+        }
+        [AnnoInfo(Desc = "Task<ActionResult> 返回类型测试")]
+        public  Task<ActionResult> TaskActionResult() {
             return Task.FromResult(new ActionResult(true,"outputData",null,""));
         }
+#endif
     }
 }

@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
 namespace Anno.Log
 {
     using Newtonsoft.Json;
@@ -268,7 +267,11 @@ namespace Anno.Log
         /// <param name="logType"></param>
         static Task WriteFile(LogType logType)
         {
+#if NET40
+            return TaskEx.Run(() =>
+#else
             return Task.Run(() =>
+#endif
             {
                 string logFile = DateTime.Today.ToString("yyyy-MM-dd");
                 //目录

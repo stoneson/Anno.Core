@@ -94,9 +94,13 @@ namespace Anno.CronNET
 
             if (millisecond != 500)
             {
+#if NET40
+                System.Threading.Thread.Sleep(millisecond);
+#else
                 Task.Delay(millisecond).Wait();
+#endif
             }
-            #endregion
+#endregion
             _timer.Start();
             Status = DaemonStatus.Started;
         }

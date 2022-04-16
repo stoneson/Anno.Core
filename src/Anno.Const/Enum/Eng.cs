@@ -21,5 +21,6 @@
         /// 免登陆
         /// </summary>
         public const string PASS = "_Login";
+
     }
 }

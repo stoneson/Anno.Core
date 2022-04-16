@@ -2,10 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>$(DeveloperBuildCoreTfms)</TargetFramework>
+    <TargetFrameworks>net6.0;net461</TargetFrameworks>
   </PropertyGroup>
 
-  <ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+		<Reference Include="System" />
+		<PackageReference Include="Polly" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+		<Reference Include="System" />
+		<PackageReference Include="Anno.EventBus" Version="1.0.3.4" />
+		<PackageReference Include="Anno.RateLimit" Version="1.0.3.4" />
+		<PackageReference Include="AspectCore.Extensions.Reflection" Version="2.0.0" />
+		<PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
+        <PackageReference Include="Polly" Version="5.9.0" />
+	</ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Anno.EventBus" Version="1.0.3.4" />
     <PackageReference Include="Anno.RateLimit" Version="1.0.3.4" />
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.2.0" />

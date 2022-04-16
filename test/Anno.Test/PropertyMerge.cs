@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
+using Microsoft.CSharp;
+
 namespace Anno.Test
 {
     public class PropertyMerge
     {
-        dynamic expando = new System.Dynamic.ExpandoObject(); //动态类型字段 可读可写
+       private dynamic expando = new System.Dynamic.ExpandoObject(); //动态类型字段 可读可写
 
         public PropertyMerge()
         {

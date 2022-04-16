@@ -11,10 +11,16 @@ namespace SoEasy.Application.Repositories
         {
             return default(T);
         }
-
+#if NET40
+        public bool SaveAsync(T t)
+        {
+            return true;
+        }
+#else
         public async Task<bool> SaveAsync(T t)
         {
             return await Task.FromResult(true);
         }
+#endif
     }
 }

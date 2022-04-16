@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>$(StandardTfms);net461</TargetFrameworks>
+    <TargetFrameworks>$(StandardTfmsGrpc);net461</TargetFrameworks>
     <Version>$(Version)</Version>
     <Description>分布式开发框架 注册中心</Description>
     <Authors>Du yanming</Authors>
@@ -10,9 +10,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="LiteDB" Version="5.0.10" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+		<Reference Include="System" />
+		<PackageReference Include="LiteDB" Version="4.1.4" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' != 'net40'">
+		<PackageReference Include="LiteDB" Version="5.0.11" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Anno.Rpc.Client\Anno.Rpc.ClientGrpc.csproj" />
     <Compile Include="..\..\Anno.Rpc.Center\Storage\*.cs" />

@@ -134,7 +134,11 @@ namespace Anno.Rpc.Center
                             WriteHealthCheck(service, hc, "永久移除");
                             break;
                         }
+#if NET40
+                        TaskEx.Delay(1000).Wait(); //间隔一秒 健康检查
+#else
                         Task.Delay(1000).Wait(); //间隔一秒 健康检查
+#endif
                     }
                 }
             }

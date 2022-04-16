@@ -369,6 +369,7 @@ namespace Anno.Const
             #endregion
             #region Packages 目录 插件
             var basePath = Path.Combine(Directory.GetCurrentDirectory(), "Packages");
+            Console.WriteLine($"basePath：{ basePath}");
             if (Directory.Exists(basePath))
             {
                 foreach (DirectoryInfo plugInfo in new DirectoryInfo(basePath).GetDirectories().Where(dir => dir.Name.StartsWith("Anno.Plugs.")))
@@ -382,6 +383,7 @@ namespace Anno.Const
                         var plugName = plugInfo.Name; //$"Anno.Plugs.SerialRule";
                         var plugNameService = $"{plugName}Service";
                         var plugsPath = Path.Combine(basePath, plugName, $"{plugNameService}.dll");
+                        Console.WriteLine($"plugsPath：{ plugsPath}");
                         if (File.Exists(plugsPath))
                         {
                             var assembly =
@@ -394,10 +396,12 @@ namespace Anno.Const
                                     SettingService.FuncName += ",";
                                 }
                                 SettingService.FuncName += plugNameService;
+                                Console.WriteLine($"FuncName：{ SettingService.FuncName}");
                             }
                             if (AppSettings.IocDll.All(plug => plug != plugNameService))
                             {
                                 AppSettings.IocDll.Add(plugNameService);
+                                Console.WriteLine($"AppSettings.IocDll.Count：{ AppSettings.IocDll.Count}");
                             }
                         }
                     }

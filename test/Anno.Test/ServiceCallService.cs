@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Anno.Rpc.Client;
+﻿using Anno.Rpc.Client;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Anno.Test
 {
@@ -23,6 +21,7 @@ namespace Anno.Test
             input.Add("number", "6");
             var x = Connector.BrokerDns(input);
             Console.WriteLine(x);
+            Log.Log.Debug("method = BuyProduct_test,rets = " + x);
             Assert.IsTrue(x.IndexOf("true") > 0);
         }
 

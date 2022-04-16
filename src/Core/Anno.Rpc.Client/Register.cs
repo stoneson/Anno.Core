@@ -65,7 +65,11 @@ namespace Anno.Rpc.Client
             }
             catch (Exception ex)
             {
+#if NET40
+                TaskEx.Delay(1000).Wait();//间隔一秒后重新注册
+#else
                 Task.Delay(1000).Wait();//间隔一秒后重新注册
+#endif
                 if (countDown > 0)
                 {
                     StringBuilder stringBuilder = new StringBuilder();

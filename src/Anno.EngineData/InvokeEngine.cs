@@ -24,7 +24,7 @@ namespace Anno.EngineData
             if (string.IsNullOrWhiteSpace(channel) || string.IsNullOrWhiteSpace(router) ||
                 string.IsNullOrWhiteSpace(method))
             {
-                throw new AnnoInvokeEngineException(AnnoInvokeEngineException.AnnoInvokeEngineExceptionType.Argument,"【管道、路由、方法】三个参数为必输参数！");
+                throw new AnnoInvokeEngineException(AnnoInvokeEngineException.AnnoInvokeEngineExceptionType.Argument, "【管道、路由、方法】三个参数为必输参数！");
             }
             if (response.ContainsKey(Eng.NAMESPACE))
             {
@@ -60,10 +60,17 @@ namespace Anno.EngineData
         /// <param name="method">方法ChangePwd</param>
         /// <param name="response">发送内容</param>
         /// <returns></returns>
+#if NET40
+        public static Task<string> InvokeProcessorAsync(string channel, string router, string method,
+            Dictionary<string, string> response)
+        {
+            return TaskEx.Run(() => InvokeProcessor(channel, router, method, response));
+#else
         public static async Task<string> InvokeProcessorAsync(string channel, string router, string method,
             Dictionary<string, string> response)
         {
             return await Task.Run(() => InvokeProcessor(channel, router, method, response));
+#endif
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+#if !NET40
+using System.ComponentModel.DataAnnotations;
+#endif
 
 namespace Anno.EngineData
 {
@@ -13,7 +15,8 @@ namespace Anno.EngineData
             ValidResult result = new ValidResult();
             try
             {
-                   var validationContext = new ValidationContext(value);
+#if !NET40
+                var validationContext = new ValidationContext(value);
                 var results = new List<ValidationResult>();
                 var isValid = Validator.TryValidateObject(value, validationContext, results, true);
 
@@ -31,6 +34,7 @@ namespace Anno.EngineData
                     }
                 }
                 else
+#endif
                 {
                     result.IsVaild = true;
                 }

@@ -37,6 +37,8 @@ namespace Anno.Log
         private static bool JudgeDebug()
         {
             Assembly assembly = Assembly.GetEntryAssembly();
+            if (assembly == null)
+                assembly = Assembly.GetExecutingAssembly();
             bool debug = false;
             foreach (var attribute in assembly.GetCustomAttributes(false))
             {

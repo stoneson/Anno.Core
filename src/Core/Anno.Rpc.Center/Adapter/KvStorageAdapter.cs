@@ -32,7 +32,7 @@ namespace Anno.Rpc.Adapter
             {
                 using (var db = AnnoDataBase.Db)
                 {
-                    ILiteCollection<AnnoKV> col = db.GetCollection<AnnoKV>();
+                    var col = db.GetCollection<AnnoKV>();
                     if (input.ContainsKey(KVCONST.Opt))
                     {
                         switch (input[KVCONST.Opt])

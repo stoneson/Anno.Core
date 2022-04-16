@@ -27,7 +27,7 @@ namespace Anno.Rpc.Adapter
             {
                 using (var db = AnnoDataBase.Db)
                 {
-                    ILiteCollection<AnnoData> col=db.GetCollection<AnnoData>();
+                    var col=db.GetCollection<AnnoData>();
                     if (input.ContainsKey(CONST.Opt))
                     {
                         switch (input[CONST.Opt])

@@ -29,9 +29,9 @@ namespace Cocas
             AnnoService(args);
         }
 
-        static async void AnnoCenter(string[] args)
+        static void AnnoCenter(string[] args)
         {
-            await Task.Factory.StartNew(() =>
+             Task.Factory.StartNew(() =>
             {
                 Cocas.ThriftConfig.AnnoFile = "Cocas.config";
                 Cocas.Bootstrap.StartUp(args, (service, noticeType) =>

@@ -37,7 +37,11 @@ namespace Anno.Rpc.Server
                 if (regRegister)
                 {
                     Log.WriteLine("重新注册完成，3秒后窗口自动关闭");
+#if NET40
+                    TaskEx.Delay(3000).Wait();
+#else
                     Task.Delay(3000).Wait();
+#endif
                     return;
                 }
                 try
@@ -87,7 +91,7 @@ namespace Anno.Rpc.Server
             {
                 EngineData.AnnoBootstrap.Bootstrap(diAction, iocType);
             }
-            #region 设置监听端口（可以通过参数 设置。没有取配置文件）
+#region 设置监听端口（可以通过参数 设置。没有取配置文件）
 
             int.TryParse(ArgsValue.GetValueByName("-p", args), out int port);
             if (port > 0)
@@ -129,7 +133,7 @@ namespace Anno.Rpc.Server
                 bool.TryParse(traceOnOffStr, out bool traceOnOff);
                 Const.SettingService.TraceOnOff = traceOnOff;
             }
-            #endregion
+#endregion
             if ((!Server.State)&&(!regRegister))
             {
                 Server.Start();

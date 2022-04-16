@@ -115,18 +115,30 @@ namespace Anno.Rpc.Client
         /// </summary>
         /// <param name="input">键值对</param>
         /// <returns>字符串结果</returns>
+#if NET40
+        public static Task<string> BrokerDnsAsync(Dictionary<string, string> input)
+        {
+            return TaskEx.Run(() => BrokerDns(input));
+#else
         public static async Task<string> BrokerDnsAsync(Dictionary<string, string> input)
         {
             return await Task.Run(() => BrokerDns(input));
+#endif
         }
         /// <summary>
         /// 异步 处理器代理 设定目标服务
         /// </summary>
         /// <param name="input">键值对</param>
         /// <returns>字符串结果</returns>
+#if NET40
+        public static Task<string> BrokerDnsAsync(Dictionary<string, string> input, Micro micro)
+        {
+            return TaskEx.Run(() => BrokerDns(input, micro));
+#else
         public static async Task<string> BrokerDnsAsync(Dictionary<string, string> input, Micro micro)
         {
             return await Task.Run(() => BrokerDns(input, micro));
+#endif
         }
         /// <summary>
         /// 异步 处理器代理
@@ -134,6 +146,15 @@ namespace Anno.Rpc.Client
         /// <param name="input">键值对</param>
         ///  <param name="nickName">昵称</param>
         /// <returns>字符串结果</returns>
+#if NET40
+        public static Task<string> BrokerDnsAsync(Dictionary<string, string> input, string nickName)
+        {
+            return TaskEx.Run(() => 
+            {
+                var micro = _microCaches.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
+                return BrokerDns(input, micro);
+            });
+#else
         public static async Task<string> BrokerDnsAsync(Dictionary<string, string> input, string nickName)
         {
             return await Task.Run(() =>
@@ -141,6 +162,7 @@ namespace Anno.Rpc.Client
                 var micro = _microCaches.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
                 return BrokerDns(input, micro);
             });
+#endif
         }
 
         public static ReadOnlyCollection<MicroCache> Micros
@@ -222,12 +244,12 @@ namespace Anno.Rpc.Client
                 return FailMessage($"未找到服务【{input[Eng.NAMESPACE]}】");
             }
             string output = string.Empty;
-            #region 调用链
+#region 调用链
 
             var trace = TransmitTrace.SetTraceId(input, micro);
 
-            #endregion
-            #region 处理请求
+#endregion
+#region 处理请求
             int error = 0;
         tryRequest:
             if (error > 0)
@@ -273,7 +295,7 @@ namespace Anno.Rpc.Client
                 TracePool.EnQueue(trace, output);
             }
 
-            #endregion
+#endregion
 
             return output;
         }
@@ -307,7 +329,7 @@ namespace Anno.Rpc.Client
             return null;
         }
 
-        #region 更新服务缓存
+#region 更新服务缓存
         /// <summary>
         /// 服务MD5值
         /// </summary>
@@ -318,7 +340,7 @@ namespace Anno.Rpc.Client
         /// <param name="channel">管道</param>
         internal static void UpdateCache(string channel)
         {
-            #region 到DNS中心取服务信息
+#region 到DNS中心取服务信息
             try
             {
                 if (channel.Equals("cron:"))
@@ -338,7 +360,7 @@ namespace Anno.Rpc.Client
                     trans.Dispose();
                     protocol.Dispose();
                 }
-                #region Micro +添加到缓存
+#region Micro +添加到缓存
 
                 if (microList != null && microList.Count > 0)
                 {
@@ -354,7 +376,7 @@ namespace Anno.Rpc.Client
                     });
                     _microCaches = microCaches;
 
-                    #region 同步服务到连接池
+#region 同步服务到连接池
                     var scs = new List<ServiceConfig>();
                     _microCaches.ForEach(mc =>
                     {
@@ -370,7 +392,7 @@ namespace Anno.Rpc.Client
                     });
                     ThriftFactory.Synchronization(scs);
 
-                    #endregion
+#endregion
                 }
                 else
                 {
@@ -378,13 +400,13 @@ namespace Anno.Rpc.Client
                     ThriftFactory.Synchronization(new List<ServiceConfig>());
                 }
 
-                #endregion
+#endregion
             }
             catch (Exception ex)
             {
                 Log.Log.Anno($"注册中心 {SettingService.Local.IpAddress}:{SettingService.Local.Port} " + ex.Message);
             }
-            #endregion
+#endregion
         }
         /// <summary>
         /// 刷新Md5值
@@ -408,6 +430,6 @@ namespace Anno.Rpc.Client
             }
             ServiceMd5 = "md5:" + stringBuilder.ToString().HashCode();
         }
-        #endregion
+#endregion
     }
 }

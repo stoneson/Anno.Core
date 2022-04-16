@@ -14,7 +14,9 @@ namespace Anno.Plugs.HelloWorldService
     using Anno.EngineData;
     using Anno.Plugs.HelloWorldService.Filters;
     using HelloWorldDto;
+#if !NET40
     using System.ComponentModel.DataAnnotations;
+#endif
     using System.Threading.Tasks;
 
     public class HelloWorldViperModule : BaseModule
@@ -61,7 +63,12 @@ namespace Anno.Plugs.HelloWorldService
         public ActionResult Test()
         {
             var i = new Random().Next(1, 80);
+#if NET40
+            TaskEx.Delay(i).Wait();//等待1秒
+#else
             System.Threading.Tasks.Task.Delay(i).Wait();//等待1秒
+#endif
+
             return new ActionResult(true, i + " :Test");
         }
         [AnnoInfo(Desc = "测试接口（返回true）")]
@@ -94,7 +101,7 @@ namespace Anno.Plugs.HelloWorldService
             }
             return new ActionResult(true, "TestFb");
         }
-        #endregion
+#endregion
 
         /// <summary>
         /// 上传文件
@@ -123,16 +130,24 @@ namespace Anno.Plugs.HelloWorldService
         /// <returns></returns>
         public dynamic WaitFor(int seconds) {
             DateTime starTime = DateTime.Now;
+#if NET40
+            TaskEx.Delay(seconds * 1000).Wait();//等待1秒
+#else
             Task.Delay(seconds * 1000).Wait();
+#endif
             DateTime endTime = DateTime.Now;
             return $"starTime:[{starTime:yyyy-MM-dd HH:mm:ss}],endTime:[{endTime:yyyy-MM-dd HH:mm:ss}]";
         }
     }
     public class TestDto
     {
+#if !NET40
         [Required(ErrorMessage = "名称字段【Name】必须输入")]
+#endif
         public string Name { get; set; }
+#if !NET40
         [Range(0, 150, ErrorMessage = "年龄有效范围0-150")]
+#endif
         public int Age { get; set; }
 
         public DateTime Birthday { get; set; }

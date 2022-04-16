@@ -60,9 +60,15 @@ namespace Anno.EngineData
         /// </summary>
         /// <param name="input">表单数据</param>
         /// <returns></returns>
+ #if NET40
+        public static Task<ActionResult> TransmitAsync(Dictionary<string, string> input)
+        {
+            return TaskEx.Run(() => Transmit(input));
+#else 
         public static async Task<ActionResult> TransmitAsync(Dictionary<string, string> input)
         {
             return await Task.Run(() => Transmit(input)).ConfigureAwait(false);
+#endif
         }
         /// <summary>
         /// 根据服务转发
@@ -75,7 +81,7 @@ namespace Anno.EngineData
             BaseModule module = null;
             try
             {
-                #region Cache
+#region Cache
                 string key = string.Empty;
                 if (routInfo.CacheMiddleware.Count > 0)
                 {
@@ -85,7 +91,7 @@ namespace Anno.EngineData
                         return rltCache;
                     }
                 }
-                #endregion
+#endregion
                 List<object> lo = new List<object>() { input };
                 module = Loader.IocLoader.Resolve<BaseModule>(routInfo.RoutModuleType);
                 var init = module.Init(input);
@@ -106,7 +112,7 @@ namespace Anno.EngineData
                         Msg = $"在【{input[Eng.NAMESPACE]}】中找不到【{input[Eng.CLASS]}.{input[Eng.METHOD]}】！"
                     };
                 }
-                #region Authorization
+#region Authorization
                 for (int i = 0; i < routInfo.AuthorizationFilters.Count; i++)
                 {
                     routInfo.AuthorizationFilters[i].OnAuthorization(module);
@@ -121,12 +127,12 @@ namespace Anno.EngineData
                         ;
                     }
                 }
-                #endregion
+#endregion
                 for (int i = 0; i < routInfo.ActionFilters.Count; i++)
                 {
                     routInfo.ActionFilters[i].OnActionExecuting(module);
                 }
-                #region 调用业务方法
+#region 调用业务方法
                 object rltCustomize = null;
                 if (routInfo.ReturnTypeIsTask)
                 {
@@ -146,7 +152,7 @@ namespace Anno.EngineData
                 {
                     module.ActionResult = new ActionResult(true, rltCustomize);
                 }
-                #endregion
+#endregion
                 for (int i = (routInfo.ActionFilters.Count - 1); i >= 0; i--)
                 {
                     routInfo.ActionFilters[i].OnActionExecuted(module);
@@ -185,9 +191,15 @@ namespace Anno.EngineData
         /// <param name="input"></param>
         /// <param name="type">表示类型声明：类类型、接口类型、数组类型、值类型、枚举类型、类型参数、泛型类型定义，以及开放或封闭构造的泛型类型</param>
         /// <returns></returns>
+#if NET40
+        public static Task<ActionResult> TransmitAsync(Dictionary<string, string> input, Routing.RoutInfo routInfo)
+        {
+            return TaskEx.Run(() => Transmit(input, routInfo));
+#else
         public static async Task<ActionResult> TransmitAsync(Dictionary<string, string> input, Routing.RoutInfo routInfo)
         {
             return await Task.Run(() => Transmit(input, routInfo)).ConfigureAwait(false);
+#endif
         }
         /// <summary>
         /// 扩展属性校验
@@ -202,7 +214,7 @@ namespace Anno.EngineData
             {
                 if (p.GetCustomAttributes<FromBodyAttribute>().Any())
                 {
-                    parameters.Add(p.ParameterType.ToObjFromDic(input));
+                    parameters.Add(p.ToObjFromDic(input));
                     continue;
                 }
                 else if (input.ContainsKey(p.Name))
@@ -225,6 +237,35 @@ namespace Anno.EngineData
                         parameters.Add(Newtonsoft.Json.JsonConvert.DeserializeObject(input[p.Name], p.ParameterType));
                     }
                 }
+                //-------------------------------解决post body自动识别入参问题-------------------------------------------------------------------------------
+                else if (input.Keys.Contains("body", StringComparer.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        var json = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(input["body"]);
+                        if (json != null)
+                        {
+                            Newtonsoft.Json.Linq.JToken valueStr;
+                            if (json.TryGetValue(p.Name, StringComparison.OrdinalIgnoreCase, out valueStr))
+                            {
+                                if (valueStr != null)
+                                {
+                                    var value = valueStr.ToObject(p.ParameterType);
+                                    parameters.Add(value);
+
+                                    continue;
+                                }
+                            }
+                        }
+                        parameters.Add(p.ToObjFromDic(input));
+                    }
+                    catch (Exception ex)
+                    {   //记录日志
+                        //Log.Log.Error(ex, p.ParameterType);
+                        throw new Exception("body 转JSON对象时异常：body非正确JSON格式，" + ex.Message);
+                    }
+                }
+                //--------------------------------------------------------------------------------------------------------------
                 else
                 {
                     parameters.Add(default);
@@ -313,16 +354,19 @@ namespace Anno.EngineData
             return sb.ToString();
         }
 
-        private static object ToObjFromDic(this Type type, Dictionary<string, string> input)
+        private static object ToObjFromDic(this ParameterInfo parameterInfo, Dictionary<string, string> input)
         {
+            var type = parameterInfo.ParameterType;
             var body = type.Assembly.CreateInstance(type.FullName);
             List<PropertyInfo> targetProps = type.GetProperties().Where(p => p.CanWrite == true).ToList();
             var fields = type.GetFields().Where(p => p.IsPublic).ToList();
             if (targetProps != null && targetProps.Count > 0)
             {
                 var keys = input.Keys.ToList();
+                var isExists = false;
                 foreach (var propertyInfo in targetProps)
                 {
+                    isExists = false;
                     foreach (var key in keys)
                     {
                         if (key.Equals(propertyInfo.Name, StringComparison.CurrentCultureIgnoreCase))
@@ -348,9 +392,49 @@ namespace Anno.EngineData
                                 }
                             }
                             catch { }
+                            isExists = true;
                             break;
                         }
                     }
+                    //---------------------解决post body自动识别入参问题-----------------------------------------------------------------------------------------
+                    if (isExists == false && (keys.Contains(parameterInfo.Name, StringComparer.OrdinalIgnoreCase)
+                        || keys.Contains("body", StringComparer.OrdinalIgnoreCase)))
+                    {
+                        try
+                        {
+                            Newtonsoft.Json.Linq.JObject json = null;
+                            if (keys.Contains(parameterInfo.Name, StringComparer.OrdinalIgnoreCase))
+                                json = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(input[parameterInfo.Name]);
+                            if (json == null)
+                                json = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(input["body"]);
+                            if (json != null)
+                            {
+                                Newtonsoft.Json.Linq.JToken valueStr;
+                                if (json.TryGetValue(propertyInfo.Name, StringComparison.OrdinalIgnoreCase, out valueStr))
+                                {
+                                    if (valueStr != null)
+                                    {
+                                        var value = valueStr.ToObject(propertyInfo.PropertyType);
+                                        propertyInfo.SetValue(body, value, null);
+                                    }
+                                }
+                                else if (json.TryGetValue(parameterInfo.Name, StringComparison.OrdinalIgnoreCase, out valueStr))
+                                {
+                                    var value = valueStr.ToObject(parameterInfo.ParameterType);
+                                    if (value != null)
+                                    {
+                                        return value;
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {   //记录日志
+                            Log.Log.Error(ex, parameterInfo.ParameterType);
+                            throw new Exception("body 转JSON对象时异常：body非正确JSON格式，" + ex.Message);
+                        }
+                    }
+                    //--------------------------------------------------------------------------------------------------------------
                 }
             }
             return body;

@@ -13,7 +13,7 @@ namespace Anno.Rpc.Storage
     using LiteDB;
     using System.IO;
 
-    public class AnnoDataBase
+    public static class AnnoDataBase
     {
         private static string connectionString = "Filename=Anno.db;Connection=Shared";
         private static bool dbExists = false;
@@ -59,5 +59,21 @@ namespace Anno.Rpc.Storage
                 return db;
             }
         }
+
+#if NET40
+
+        /// <summary>
+        /// Delete all documents based on predicate expression. Returns how many documents     was deleted
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="col"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static int DeleteMany<T>(this LiteCollection<T> col, System.Linq.Expressions.Expression<Func<T, bool>> predicate)
+        {
+            // var c = col.Count(predicate);
+            return col.Delete(predicate);
+        }
+#endif
     }
 }

@@ -99,7 +99,11 @@ namespace Anno.Loader
                        {
                            if (t.IsGenericType)
                            {
+#if NET40
+                               if (!(interfaces.Length == 1))
+#else
                                if (!(interfaces.Length == 1 && interfaces[0].Equals(typeof(IAsyncStateMachine))))
+#endif
                                {
                                    switch (lifetime)
                                    {

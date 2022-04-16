@@ -100,7 +100,11 @@ namespace Anno.EngineData.SysInfo
                 }
 
             }
+#if NET40
+            TaskEx.Delay(cpuFullTime).Wait();
+#else
             Task.Delay(cpuFullTime).Wait();
+#endif
             foreach (var process in processes)
             {
                 try

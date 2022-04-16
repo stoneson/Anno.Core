@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>$(DeveloperBuildCoreTfms)</TargetFramework>
+    <TargetFrameworks>$(DeveloperBuildCoreTfmsGrpc)</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
