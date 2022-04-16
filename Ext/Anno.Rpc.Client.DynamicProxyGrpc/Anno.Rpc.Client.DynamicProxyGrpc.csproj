@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>$(StandardTfmsGrpc);net461</TargetFrameworks>
+    <Description>Anno.Rpc.Client.DynamicProxyGrpc,客户端RPC接口代理</Description>
+    <PackageId>Anno.Rpc.Client.DynamicProxyGrpc</PackageId>
+    <Authors>Du yanming</Authors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.4.1" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <Compile Include="..\Anno.Rpc.Client.DynamicProxy\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
+    <ProjectReference Include="..\..\src\Core\Grpc\Anno.Rpc.Client\Anno.Rpc.ClientGrpc.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

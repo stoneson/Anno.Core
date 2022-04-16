@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>$(DeveloperBuildCoreTfmsGrpc)</TargetFrameworks>
+	</PropertyGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' != 'net40'">
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Include="..\AnnoExt.Test\AnnoRpcTest.cs" Link="AnnoRpcTest.cs" />
+	  <Compile Include="..\AnnoExt.Test\IHelloWorldService.cs" Link="IHelloWorldService.cs" />
+	  <Compile Include="..\AnnoExt.Test\ITaskService.cs" Link="ITaskService.cs" />
+	  <Compile Include="..\AnnoExt.Test\ITaskService2.cs" Link="ITaskService2.cs" />
+	  <Compile Include="..\AnnoExt.Test\LruCacheTest.cs" Link="LruCacheTest.cs" />
+	  <Compile Include="..\AnnoExt.Test\LruCacheTest1.cs" Link="LruCacheTest1.cs" />
+	  <Compile Include="..\AnnoExt.Test\LruCacheTest2.cs" Link="LruCacheTest2.cs" />
+	  <Compile Include="..\AnnoExt.Test\UserDto.cs" Link="UserDto.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Ext\Anno.LRUCache\Anno.LRUCache.csproj" />
+		<ProjectReference Include="..\..\Ext\Anno.Rpc.Client.DynamicProxyGrpc\Anno.Rpc.Client.DynamicProxyGrpc.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+</Project>

@@ -2,8 +2,8 @@
 	<PropertyGroup>
 		<DeveloperBuildCoreTfms>net6.0;net45;net40;</DeveloperBuildCoreTfms>
 		<DeveloperBuildCoreTfmsGrpc>net6.0;net461;net45</DeveloperBuildCoreTfmsGrpc>
-		<StandardTfms>netstandard2.0;net45;net40;</StandardTfms>
-		<StandardTfmsGrpc>netstandard2.0;net45;</StandardTfmsGrpc>
+		<StandardTfms>netstandard2.1;netstandard2.0;net45;net40;</StandardTfms>
+		<StandardTfmsGrpc>netstandard2.1;netstandard2.0;net45;</StandardTfmsGrpc>
 		<Version>1.7.0.1</Version>
 		<Authors>Du yanming</Authors>
 		<Company>Du yanming</Company>

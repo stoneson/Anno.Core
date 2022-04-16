@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+	  <TargetFrameworks>net6.0;net461;net40</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Ext\Anno.RateLimit\Anno.RateLimit.csproj" />
+    <ProjectReference Include="..\..\src\Anno.Log\Anno.Log.csproj" />
+  </ItemGroup>
+
+</Project>

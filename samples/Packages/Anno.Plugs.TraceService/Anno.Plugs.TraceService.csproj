@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
+    <ProjectReference Include="..\..\..\src\Core\Anno.Rpc.Client\Anno.Rpc.Client.csproj" />
   </ItemGroup>
 
 </Project>

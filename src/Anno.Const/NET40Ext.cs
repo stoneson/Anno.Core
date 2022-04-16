@@ -109,6 +109,11 @@ namespace Anno
             timer.Start();
             return tcs.Task;
         }
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
+        public static Task<TResult> FromResult<TResult>(TResult result)
+        {
+            return Run(()=> result);
+        }
     }
 }
 #endif

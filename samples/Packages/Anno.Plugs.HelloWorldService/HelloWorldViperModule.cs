@@ -74,7 +74,7 @@ namespace Anno.Plugs.HelloWorldService
         [AnnoInfo(Desc = "测试接口（返回true）")]
         public ActionResult Test0()
         {
-            return new ActionResult(true);
+            return new ActionResult(true) { OutputData= "测试接口（返回true）" };
         }
         [AnnoInfo(Desc = "测试接口（{Id} From Server Test1.）")]
         public ActionResult Test1([AnnoInfo(Desc = "Id")] string id)

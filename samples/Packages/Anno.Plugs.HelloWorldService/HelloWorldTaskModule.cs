@@ -1,5 +1,6 @@
 ﻿using Anno.Const.Attribute;
 using Anno.EngineData;
+using HelloWorldDto;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,18 @@ namespace Anno.Plugs.HelloWorldService
 
             return (rlt);
         }
+         [AnnoInfo(Desc = "世界你好啊SayHello2")]
+        public dynamic SayHello2([AnnoInfo(Desc = "人员信息")][FromBody] PersonDto person
+            , [AnnoInfo(Desc = "人员信息2")] PersonDto person2)
+        {
+            return new { HelloWorldViperMsg = $"{person.Name}你好啊，今年{ person2.Age}岁了" };
+        }
+        [AnnoInfo(Desc = "世界你好啊SayHello3")]
+        public dynamic SayHello3([AnnoInfo(Desc = "人员信息")] PersonDto person)
+        {
+            return new { HelloWorldViperMsg = $"{person.Name}你好啊，今年{ person.Age}岁了" };
+        }
+
         [AnnoInfo(Desc = "" +
             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
              "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
@@ -59,6 +72,18 @@ namespace Anno.Plugs.HelloWorldService
 
             return await Task.FromResult(rlt);
         }
+        [AnnoInfo(Desc = "世界你好啊SayHello2")]
+        public dynamic SayHello2([AnnoInfo(Desc = "人员信息")][FromBody] PersonDto person
+            , [AnnoInfo(Desc = "人员信息2")] PersonDto person2)
+        {
+            return new { HelloWorldViperMsg = $"{person.Name}你好啊，今年{ person2.Age}岁了" };
+        }
+        [AnnoInfo(Desc = "世界你好啊SayHello3")]
+        public dynamic SayHello3([AnnoInfo(Desc = "人员信息")] PersonDto person)
+        {
+            return new { HelloWorldViperMsg = $"{person.Name}你好啊，今年{ person.Age}岁了" };
+        }
+
         [AnnoInfo(Desc = "" +
             "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +
              "世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> SayHello世界你好啊Task<dynamic> " +

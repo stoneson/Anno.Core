@@ -42,7 +42,7 @@ namespace ConsoleGrpcTest
                         var t1 = Task.Run(() =>
                         {
                             var x = Connector.BrokerDns(input);
-                            //Console.WriteLine(x);
+                            Console.WriteLine(x);
                             if (x.IndexOf("true") <= 0)
                             {
                                 Console.WriteLine(x);

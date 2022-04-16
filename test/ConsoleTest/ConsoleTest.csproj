@@ -12,20 +12,20 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
 		<Reference Include="System" />
 		<PackageReference Include="Anno.EventBus" Version="1.0.3.4" />
-		<PackageReference Include="Anno.RateLimit" Version="1.0.3.4" />
 		<PackageReference Include="AspectCore.Extensions.Reflection" Version="2.0.0" />
 		<PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
         <PackageReference Include="Polly" Version="5.9.0" />
 	</ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Anno.EventBus" Version="1.0.3.4" />
-    <PackageReference Include="Anno.RateLimit" Version="1.0.3.4" />
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.2.0" />
     <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
     <PackageReference Include="Polly" Version="7.2.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Ext\Anno.LRUCache\Anno.LRUCache.csproj" />
+    <ProjectReference Include="..\..\Ext\Anno.RateLimit\Anno.RateLimit.csproj" />
     <ProjectReference Include="..\..\samples\Packages\HelloWorldDto\HelloWorldDto.csproj" />
     <ProjectReference Include="..\..\src\Anno.CronNET\Anno.CronNET.csproj" />
     <ProjectReference Include="..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
