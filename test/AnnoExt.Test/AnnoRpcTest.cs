@@ -38,6 +38,8 @@ namespace Anno.Test
 
             for (int i = 0; i < 5; i++)
             {
+                Console.WriteLine($"--------------Start-{i}-------------------------------------------------------------");
+
                 var rlt1 = taskService.ServiceInstances();
 
                 var ss = taskService.TaskSayHi("杜燕明").Result;
@@ -59,7 +61,7 @@ namespace Anno.Test
                 var rlt2 = taskService.TaskSayHello("AnnoGrpc", 26);
                 Console.WriteLine("SayHello-AnnoGrpc:" + Newtonsoft.Json.JsonConvert.SerializeObject(rlt2));
 
-                Console.WriteLine("----------------------------------------------------------------------------");
+                Console.WriteLine($"--------------End-{i}-------------------------------------------------------------");
             }
         }
         static void Init()

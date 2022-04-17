@@ -10,11 +10,11 @@ namespace Anno.EngineData
     public interface IPlugsConfigurationBootstrap
     {
         /// <summary>
-        ///IOC之前
+        ///IOC之前，Service 依赖注入构建之前调用
         /// </summary>
         void PreConfigurationBootstrap();
         /// <summary>
-        /// 插件启动配置
+        /// 插件启动配置，Service 依赖注入构建之后调用
         /// </summary>
         void ConfigurationBootstrap();
     }

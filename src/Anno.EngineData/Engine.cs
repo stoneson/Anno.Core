@@ -60,11 +60,11 @@ namespace Anno.EngineData
         /// </summary>
         /// <param name="input">表单数据</param>
         /// <returns></returns>
- #if NET40
+#if NET40
         public static Task<ActionResult> TransmitAsync(Dictionary<string, string> input)
         {
             return TaskEx.Run(() => Transmit(input));
-#else 
+#else
         public static async Task<ActionResult> TransmitAsync(Dictionary<string, string> input)
         {
             return await Task.Run(() => Transmit(input)).ConfigureAwait(false);
@@ -81,7 +81,7 @@ namespace Anno.EngineData
             BaseModule module = null;
             try
             {
-#region Cache
+                #region Cache
                 string key = string.Empty;
                 if (routInfo.CacheMiddleware.Count > 0)
                 {
@@ -91,7 +91,7 @@ namespace Anno.EngineData
                         return rltCache;
                     }
                 }
-#endregion
+                #endregion
                 List<object> lo = new List<object>() { input };
                 module = Loader.IocLoader.Resolve<BaseModule>(routInfo.RoutModuleType);
                 var init = module.Init(input);
@@ -112,7 +112,7 @@ namespace Anno.EngineData
                         Msg = $"在【{input[Eng.NAMESPACE]}】中找不到【{input[Eng.CLASS]}.{input[Eng.METHOD]}】！"
                     };
                 }
-#region Authorization
+                #region Authorization
                 for (int i = 0; i < routInfo.AuthorizationFilters.Count; i++)
                 {
                     routInfo.AuthorizationFilters[i].OnAuthorization(module);
@@ -127,21 +127,23 @@ namespace Anno.EngineData
                         ;
                     }
                 }
-#endregion
+                #endregion
                 for (int i = 0; i < routInfo.ActionFilters.Count; i++)
                 {
                     routInfo.ActionFilters[i].OnActionExecuting(module);
                 }
-#region 调用业务方法
+                #region 调用业务方法
                 object rltCustomize = null;
                 if (routInfo.ReturnTypeIsTask)
                 {
-                    var rlt = (routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task);
-                    rltCustomize = routInfo.RoutMethod.ReturnType.GetProperty("Result").GetValue(rlt, null);
+                    var rlt = routInfo.RoutMethod.FastInvoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task;
+                    //(routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task);
+                    rltCustomize = FastReflection.FastGetValue("Result", rlt);// routInfo.RoutMethod.ReturnType.GetProperty("Result").GetValue(rlt, null);
                 }
                 else
                 {
-                    rltCustomize = routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
+                    rltCustomize = routInfo.RoutMethod.FastInvoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
+                    //routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
                 }
 
                 if (routInfo.ReturnTypeIsIActionResult && rltCustomize != null)
@@ -152,7 +154,7 @@ namespace Anno.EngineData
                 {
                     module.ActionResult = new ActionResult(true, rltCustomize);
                 }
-#endregion
+                #endregion
                 for (int i = (routInfo.ActionFilters.Count - 1); i >= 0; i--)
                 {
                     routInfo.ActionFilters[i].OnActionExecuted(module);

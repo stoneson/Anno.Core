@@ -11,4 +11,8 @@
     <FileVersion>1.0.0.0</FileVersion>
     <Version>$(Version)</Version>
   </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
 </Project>

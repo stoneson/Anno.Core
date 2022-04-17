@@ -54,7 +54,7 @@ namespace Anno.EngineData
                 return;
             }
             var obj = Activator.CreateInstance(type);
-            type.GetMethod("PreConfigurationBootstrap")?.Invoke(obj, null);
+            type.GetMethod("PreConfigurationBootstrap")?.FastInvoke(obj);//.Invoke(obj, null);
             var dependsOn = type.GetCustomAttributes<DependsOnAttribute>().FirstOrDefault();
             if (dependsOn != null)
             {
