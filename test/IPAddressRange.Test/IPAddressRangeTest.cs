@@ -402,10 +402,10 @@ public class IPAddressRangeTest
 
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.60.2", "192.168.60.2")]
-    [TestCase("192.168.60.2/24", "192.168.60.0-192.168.60.255")]
-    [TestCase("fe80::d503:4ee:3882:c586", "fe80::d503:4ee:3882:c586")]
-    [TestCase("fe80::d503:4ee:3882:c586/120", "fe80::d503:4ee:3882:c500-fe80::d503:4ee:3882:c5ff")]
+    [NUnit.Framework.TestCase("192.168.60.2", "192.168.60.2")]
+    [NUnit.Framework.TestCase("192.168.60.2/24", "192.168.60.0-192.168.60.255")]
+    [NUnit.Framework.TestCase("fe80::d503:4ee:3882:c586", "fe80::d503:4ee:3882:c586")]
+    [NUnit.Framework.TestCase("fe80::d503:4ee:3882:c586/120", "fe80::d503:4ee:3882:c500-fe80::d503:4ee:3882:c5ff")]
     public void ToString_Output(string input, string expected)
     {
        // TestContext.Run(() =>
@@ -421,13 +421,13 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("fe80::/10", 10)]
-    [TestCase("192.168.0.0/24", 24)]
-    [TestCase("192.168.0.0", 32)]
-    [TestCase("192.168.0.0-192.168.0.0", 32)]
-    [TestCase("fe80::", 128)]
-    [TestCase("192.168.0.0-192.168.0.255", 24)]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:ffff", 16)]
+    [NUnit.Framework.TestCase("fe80::/10", 10)]
+    [NUnit.Framework.TestCase("192.168.0.0/24", 24)]
+    [NUnit.Framework.TestCase("192.168.0.0", 32)]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.0", 32)]
+    [NUnit.Framework.TestCase("fe80::", 128)]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.255", 24)]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:ffff", 16)]
     public void GetPrefixLength_Success(string input, int expected)
     {
         //TestContext.Run(() =>
@@ -440,13 +440,13 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("fe80::", "febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff", 10)]
-    [TestCase("192.168.0.0", "192.168.0.255", 24)]
-    [TestCase("192.168.0.0", "192.168.0.0", 32)]
-    [TestCase("192.168.0.0", "192.168.0.0", 32)]
-    [TestCase("fe80::", "fe80::", 128)]
-    [TestCase("192.168.0.0", "192.168.0.255", 24)]
-    [TestCase("fe80::", "fe80:ffff:ffff:ffff:ffff:ffff:ffff:ffff", 16)]
+    [NUnit.Framework.TestCase("fe80::", "febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff", 10)]
+    [NUnit.Framework.TestCase("192.168.0.0", "192.168.0.255", 24)]
+    [NUnit.Framework.TestCase("192.168.0.0", "192.168.0.0", 32)]
+    [NUnit.Framework.TestCase("192.168.0.0", "192.168.0.0", 32)]
+    [NUnit.Framework.TestCase("fe80::", "fe80::", 128)]
+    [NUnit.Framework.TestCase("192.168.0.0", "192.168.0.255", 24)]
+    [NUnit.Framework.TestCase("fe80::", "fe80:ffff:ffff:ffff:ffff:ffff:ffff:ffff", 16)]
     public void GetPrefixLength_with_RewriteBeginEndProperties_Success(string begin, string end, int expected)
     {
         var range = new IPAddressRange();
@@ -462,8 +462,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0-192.168.0.254", typeof(FormatException))]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", typeof(FormatException))]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.254", typeof(FormatException))]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", typeof(FormatException))]
     public void GetPrefixLength_Failures(string input, Type expectedException)
     {
         //TestContext.Run((string input, Type expectedException) =>
@@ -486,8 +486,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0", "192.168.0.254", typeof(FormatException), "fe80::", "fe80::", 128)]
-    [TestCase("fe80::", "fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", typeof(FormatException), "192.168.0.0", "192.168.0.255", 24)]
+    [NUnit.Framework.TestCase("192.168.0.0", "192.168.0.254", typeof(FormatException), "fe80::", "fe80::", 128)]
+    [NUnit.Framework.TestCase("fe80::", "fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", typeof(FormatException), "192.168.0.0", "192.168.0.255", 24)]
     public void GetPrefixLength_with_RewriteBeginEndProperties_Failures(string begin, string end, Type expectedException, string begin2, string end2, int expected)
     {
         var range = new IPAddressRange();
@@ -521,13 +521,13 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("fe80::/10", "fe80::/10")]
-    [TestCase("192.168.0.0/24", "192.168.0.0/24")]
-    [TestCase("192.168.0.0", "192.168.0.0/32")]
-    [TestCase("192.168.0.0-192.168.0.0", "192.168.0.0/32")]
-    [TestCase("fe80::", "fe80::/128")]
-    [TestCase("192.168.0.0-192.168.0.255", "192.168.0.0/24")]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "fe80::/16")]
+    [NUnit.Framework.TestCase("fe80::/10", "fe80::/10")]
+    [NUnit.Framework.TestCase("192.168.0.0/24", "192.168.0.0/24")]
+    [NUnit.Framework.TestCase("192.168.0.0", "192.168.0.0/32")]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.0", "192.168.0.0/32")]
+    [NUnit.Framework.TestCase("fe80::", "fe80::/128")]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.255", "192.168.0.0/24")]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:ffff", "fe80::/16")]
     public void ToCidrString_Output(string input, string expected)
     {
         //TestContext.Run((string input, string expected) =>
@@ -540,8 +540,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0-192.168.0.254", typeof(FormatException))]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", typeof(FormatException))]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.254", typeof(FormatException))]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", typeof(FormatException))]
     public void ToCidrString_ThrowsOnNonCidr(string input, Type expectedException)
     {
         //TestContext.Run((string input, Type expectedException) =>
@@ -564,8 +564,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0-192.168.0.254")]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe")]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.254")]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe")]
     public void GetHashCode_SameRange_HashCodesAreSame(string input)
     {
         //TestContext.Run((string input) =>
@@ -578,8 +578,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0-192.168.0.254", "192.168.0.1-192.168.0.254")]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", "fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffd")]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.254", "192.168.0.1-192.168.0.254")]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", "fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffd")]
     public void GetHashCode_DifferentRanges_HashCodesAreDifferent(string input1, string input2)
     {
         //TestContext.Run((string input1, string input2) =>
@@ -592,8 +592,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0-192.168.0.254")]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe")]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.254")]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe")]
     public void Equals_SameRange_ReturnsTrue(string input)
     {
         //TestContext.Run((string input) =>
@@ -606,8 +606,8 @@ public class IPAddressRangeTest
     }
 
      [NUnit.Framework.Test]
-    [TestCase("192.168.0.0-192.168.0.254", "192.168.0.1-192.168.0.254")]
-    [TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", "fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffd")]
+    [NUnit.Framework.TestCase("192.168.0.0-192.168.0.254", "192.168.0.1-192.168.0.254")]
+    [NUnit.Framework.TestCase("fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffe", "fe80::-fe80:ffff:ffff:ffff:ffff:ffff:ffff:fffd")]
     public void Equals_SameRange_ReturnsFalse(string input1, string input2)
     {
         //TestContext.Run(() =>
