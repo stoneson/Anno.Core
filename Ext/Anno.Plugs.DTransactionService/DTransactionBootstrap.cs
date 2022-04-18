@@ -68,31 +68,31 @@ namespace Anno.Plugs.DTransactionService
                         }
                         #region 路由信息
 
-                        if (response.ContainsKey("channel"))
+                        if (response.ContainsKey(Eng.NAMESPACE))
                         {
-                            response["channel"] = channel;
+                            response[Eng.NAMESPACE] = channel;
                         }
                         else
                         {
-                            response.Add("channel", channel);
+                            response.Add(Eng.NAMESPACE, channel);
                         }
 
-                        if (response.ContainsKey("router"))
+                        if (response.ContainsKey(Eng.CLASS))
                         {
-                            response["router"] = router;
+                            response[Eng.CLASS] = router;
                         }
                         else
                         {
-                            response.Add("router", router);
+                            response.Add(Eng.CLASS, router);
                         }
 
-                        if (response.ContainsKey("method"))
+                        if (response.ContainsKey(Eng.METHOD))
                         {
-                            response["method"] = method;
+                            response[Eng.METHOD] = method;
                         }
                         else
                         {
-                            response.Add("method", method);
+                            response.Add(Eng.METHOD, method);
                         }
                         #endregion
                         rpc.BrokerDns(response);

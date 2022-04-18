@@ -14,6 +14,8 @@ using Anno.Rpc.Client.DynamicProxy;
 
 namespace Anno.Test
 {
+#if NETFRAMEWORK
+    using System.ServiceModel;
     [AnnoProxy(Channel = "CNative.Modules.WCFTest", Router = "ServiceTest")]
     public interface IWCFTest
     {
@@ -88,6 +90,85 @@ namespace Anno.Test
         [AnnoProxy(Method = "AddWeather")]
         string AddWeather(WeatherForecast wf);
     }
+
+    /// <summary>
+    /// 测试WCF服务
+    /// </summary>
+    // 注意: 使用“重构”菜单上的“重命名”命令，可以同时更改代码和配置文件中的接口名“IServiceTest”。
+    [ServiceContract]
+    public interface IServiceTest
+    {
+        /// <summary>
+        /// 测试无返回值
+        /// </summary>
+        [OperationContract]
+        void DoWork();
+
+        /// <summary>
+        /// 测试返回集合
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        List<WeatherForecast> HelloWorld();
+        /// <summary>
+        /// 测试值入参
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        [OperationContract]
+        int GetInt(int a, int b);
+        /// <summary>
+        /// 返回日期
+        /// </summary>
+        /// <returns></returns>
+        [OperationContract]
+        DateTime GetDate();
+        /// <summary>
+        /// 返回实体
+        /// </summary>
+        /// <param name="summarie"></param>
+        /// <returns></returns>
+        [OperationContract]
+        WeatherForecast getBySummarie(string summarie);
+        /// <summary>
+        /// 入参为实体
+        /// </summary>
+        /// <param name="MyCar"></param>
+        /// <returns></returns>
+        [OperationContract]
+        string AddCar(MyCar MyCar);
+        /// <summary>
+        /// 两实体入参
+        /// </summary>
+        /// <param name="car1"></param>
+        /// <param name="car2"></param>
+        /// <returns></returns>
+        [OperationContract]
+        string AddCar2(MyCar car1, MyCar car2, int id);
+        /// <summary>
+        /// 入参实体集合
+        /// </summary>
+        /// <param name="cars"></param>
+        /// <returns></returns>
+        [OperationContract]
+        string AddCars(List<MyCar> cars);
+        /// <summary>
+        /// 入参实体集合加实体
+        /// </summary>
+        /// <param name="cars"></param>
+        /// <param name="car2"></param>
+        /// <returns></returns>
+        [OperationContract]
+        string AddCar2(List<MyCar> cars, MyCar car2, string name);
+        /// <summary>
+        /// 入参为实体内嵌实体
+        /// </summary>
+        /// <param name="wf"></param>
+        /// <returns></returns>
+        [OperationContract]
+        string AddWeather(WeatherForecast wf);
+    }
     public class WCFTest
     {
         public static void Handle()
@@ -96,17 +177,17 @@ namespace Anno.Test
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
 
-            var taskService = AnnoProxyBuilder.GetService<IWCFTest>();
+            var taskService = AnnoWcfProxyBuilder.GetService<IServiceTest>("CNative.Modules.WCFTest", "ServiceTest");
             stopWatch.Stop();
             Console.WriteLine($"AnnoProxyBuilder.GetService：{stopWatch.Elapsed}");
 
             stopWatch.Restart();
-            taskService = AnnoProxyBuilder.GetService<IWCFTest>();
+            taskService = AnnoWcfProxyBuilder.GetService<IServiceTest>("CNative.Modules.WCFTest", "ServiceTest");
             stopWatch.Stop();
             Console.WriteLine($"AnnoProxyBuilder.GetService2：{stopWatch.Elapsed}");
 
             //var helloWorldService = AnnoProxyBuilder.GetService<IHelloWorldService>();
-            
+
             for (int i = 0; i < 3; i++)
             {
                 Console.WriteLine($"--------------Start-{i}-------------------------------------------------------------");
@@ -117,9 +198,9 @@ namespace Anno.Test
 
                 var car = new MyCar()
                 {
-                    id = "1"+i,
+                    id = "1" + i,
                     name = "ff",
-                    msg1 = "测试 "+i,
+                    msg1 = "测试 " + i,
                     wf = new WeatherForecast() { code = 22, Date = DateTime.Now, myCar = new MyCar2() { name = "adb" } },
                     wfList = new List<WeatherForecast>() {
                         new WeatherForecast() { code = 22, Date = DateTime.Now, myCar = new MyCar2() { name = "adb3" } }
@@ -129,7 +210,7 @@ namespace Anno.Test
                 {
                     id = "1" + i,
                     name = "ff",
-                    msg1 = "测试2 "+i,
+                    msg1 = "测试2 " + i,
                     wf = new WeatherForecast() { code = 22, Date = DateTime.Now, myCar = new MyCar2() { name = "adb" } },
                     wfList = new List<WeatherForecast>() {
                         new WeatherForecast() { code = 22, Date = DateTime.Now, myCar = new MyCar2() { name = "adb3" } }
@@ -214,4 +295,5 @@ namespace Anno.Test
             return $"{Summary},{code},{msg},{Date},{TemperatureC}";
         }
     }
+#endif
 }

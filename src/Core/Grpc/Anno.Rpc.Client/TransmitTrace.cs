@@ -190,9 +190,9 @@ namespace Anno.Rpc.Client
                 var keys = trace.InputDictionary.Keys;
                 foreach (var key in keys)
                 {
-                    if (key.Equals("channel")
-                        || key.Equals("router")
-                        || key.Equals("method")
+                    if (key.Equals(Const.Enum.Eng.NAMESPACE)
+                        || key.Equals(Const.Enum.Eng.CLASS)
+                        || key.Equals(Const.Enum.Eng.METHOD)
                         || key.Equals("X-Original-For")
                         || key.Equals("TraceId")
                         || key.Equals("PreTraceId")

@@ -16,9 +16,9 @@ namespace Anno.Test
             //Tx1ServiceTest.Handle();
             //Tx2ServiceTest.Handle();
             //Tx3ServiceTest.Handle();
-
+#if NETFRAMEWORK
             WCFTest.Handle();
-
+#endif
             Console.ReadLine();
         }
     }

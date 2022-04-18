@@ -9,63 +9,26 @@ using Newtonsoft.Json;
 
 namespace Anno.Rpc.Client.DynamicProxy
 {
+#if NETFRAMEWORK
     using Anno.Rpc.Client;
-    public class AnnoRpcInterceptor : IInterceptor
+    public class AnnoWcfRpcInterceptor : IInterceptor
     {
+        public string Channel { get; set; }
+        public string Router { get; set; }
+
         private static Type _taskType = typeof(Task);
         private static Type rltObjectType = typeof(Anno.EngineData.ActionResult<>);
+        public AnnoWcfRpcInterceptor(string channel, string router)
+        {
+            Channel = channel;
+            Router = router;
+        }
         public void Intercept(IInvocation invocation)
         {
             Dictionary<string, string> input = new Dictionary<string, string>();
-            AnnoProxyAttribute proxyAttribute = new AnnoProxyAttribute();
-            var moduleAttribute = invocation.Method.DeclaringType.GetCustomAttributes<AnnoProxyAttribute>().FirstOrDefault();
-            var methodAttribute = invocation.Method.GetCustomAttributes<AnnoProxyAttribute>().FirstOrDefault();
-
-            if (moduleAttribute != null)
-            {
-                if (!string.IsNullOrWhiteSpace(moduleAttribute.Channel))
-                {
-                    proxyAttribute.Channel = moduleAttribute.Channel;
-                }
-                if (!string.IsNullOrWhiteSpace(moduleAttribute.Router))
-                {
-                    proxyAttribute.Router = moduleAttribute.Router;
-                }
-                if (!string.IsNullOrWhiteSpace(moduleAttribute.Method))
-                {
-                    proxyAttribute.Method = moduleAttribute.Method;
-                }
-            }
-            if (methodAttribute != null)
-            {
-                if (!string.IsNullOrWhiteSpace(methodAttribute.Channel))
-                {
-                    proxyAttribute.Channel = methodAttribute.Channel;
-                }
-                if (!string.IsNullOrWhiteSpace(methodAttribute.Router))
-                {
-                    proxyAttribute.Router = methodAttribute.Router;
-                }
-                if (!string.IsNullOrWhiteSpace(methodAttribute.Method))
-                {
-                    proxyAttribute.Method = methodAttribute.Method;
-                }
-            }
-            if (string.IsNullOrWhiteSpace(proxyAttribute.Channel))
-            {
-                proxyAttribute.Method = invocation.Method.DeclaringType.Module.Name;
-            }
-            if (string.IsNullOrWhiteSpace(proxyAttribute.Router))
-            {
-                proxyAttribute.Method = invocation.Method.DeclaringType.Name;
-            }
-            if (string.IsNullOrWhiteSpace(proxyAttribute.Method))
-            {
-                proxyAttribute.Method = invocation.Method.Name;
-            }
-            input.AddOrUpdate(Const.Enum.Eng.NAMESPACE, proxyAttribute.Channel);
-            input.AddOrUpdate(Const.Enum.Eng.CLASS, proxyAttribute.Router);
-            input.AddOrUpdate(Const.Enum.Eng.METHOD, proxyAttribute.Method);
+            input.AddOrUpdate(Const.Enum.Eng.NAMESPACE, Channel);
+            input.AddOrUpdate(Const.Enum.Eng.CLASS, Router);
+            input.AddOrUpdate(Const.Enum.Eng.METHOD, invocation.Method.Name);
             var _params = invocation.Method.GetParameters();
             for (int i = 0; i < _params.Length; i++)
             {
@@ -181,4 +144,5 @@ namespace Anno.Rpc.Client.DynamicProxy
             }
         }
     }
+#endif
 }

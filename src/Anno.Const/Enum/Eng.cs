@@ -18,6 +18,10 @@
         /// </summary>
         public const string METHOD = "method";
         /// <summary>
+        /// 节点名称
+        /// </summary>
+        public const string NODENAME = "nodeName";
+        /// <summary>
         /// 免登陆
         /// </summary>
         public const string PASS = "_Login";

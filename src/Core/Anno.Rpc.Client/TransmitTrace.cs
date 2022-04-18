@@ -169,9 +169,9 @@ namespace Anno.Rpc.Client
                 trace.AppNameTarget = GetValueByKey(trace.InputDictionary, "AppNameTarget");
                 trace.TTL = RequestInt32(trace.InputDictionary, "TTL");
                 trace.Target = GetValueByKey(trace.InputDictionary, "Target");
-                trace.Askchannel = GetValueByKey(trace.InputDictionary, "channel");
-                trace.Askrouter = GetValueByKey(trace.InputDictionary, "router");
-                trace.Askmethod = GetValueByKey(trace.InputDictionary, "method");
+                trace.Askchannel = GetValueByKey(trace.InputDictionary, Const.Enum.Eng.NAMESPACE);
+                trace.Askrouter = GetValueByKey(trace.InputDictionary, Const.Enum.Eng.CLASS);
+                trace.Askmethod = GetValueByKey(trace.InputDictionary, Const.Enum.Eng.METHOD);
                 trace.GlobalTraceId = GetValueByKey(trace.InputDictionary, "GlobalTraceId");
                 trace.Uname = GetValueByKey(trace.InputDictionary, "uname");
                 trace.Rlt = trace.Response?.IndexOf("tatus\":true") > 0;
@@ -190,9 +190,9 @@ namespace Anno.Rpc.Client
                 var keys = trace.InputDictionary.Keys;
                 foreach (var key in keys)
                 {
-                    if (key.Equals("channel")
-                           || key.Equals("router")
-                           || key.Equals("method")
+                    if (key.Equals(Const.Enum.Eng.NAMESPACE)
+                           || key.Equals(Const.Enum.Eng.CLASS)
+                           || key.Equals(Const.Enum.Eng.METHOD)
                            || key.Equals("X-Original-For")
                            || key.Equals("TraceId")
                            || key.Equals("PreTraceId")
