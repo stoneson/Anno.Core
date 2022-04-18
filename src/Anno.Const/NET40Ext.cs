@@ -22,13 +22,13 @@ namespace Anno
         //}
         public static T GetCustomAttribute<T>(this System.Reflection.MemberInfo element) where T : Attribute
         {
-            var atrs = element.GetCustomAttributes<T>();
+            var atrs = element?.GetCustomAttributes<T>();
             return atrs?.Count > 0 ? atrs[0] : default(T);
         }
         public static List<T> GetCustomAttributes<T>(this System.Reflection.MemberInfo element) where T : Attribute
         {
             var list = new List<T>();
-            var objs = element.GetCustomAttributes(typeof(T), true);
+            var objs = element?.GetCustomAttributes(typeof(T), true);
             foreach (var o in objs)
             {
                 if (o is T) list.Add(o as T);
@@ -41,13 +41,13 @@ namespace Anno
         //}
         public static T GetCustomAttribute<T>(this System.Reflection.ParameterInfo element) where T : Attribute
         {
-            var atrs = element.GetCustomAttributes<T>();
+            var atrs = element?.GetCustomAttributes<T>();
             return atrs?.Count > 0 ? atrs[0] : default(T);
         }
         public static List<T> GetCustomAttributes<T>(this System.Reflection.ParameterInfo element) where T : Attribute
         {
             var list = new List<T>();
-            var objs = element.GetCustomAttributes(typeof(T), true);
+            var objs = element?.GetCustomAttributes(typeof(T), true);
             foreach (var o in objs)
             {
                 if (o is T) list.Add(o as T);
@@ -56,7 +56,7 @@ namespace Anno
         }
         public static object GetValue(this System.Reflection.PropertyInfo element, object obj)
         {
-            return element.GetValue(obj, null);
+            return element?.GetValue(obj, null);
         }
        
     }

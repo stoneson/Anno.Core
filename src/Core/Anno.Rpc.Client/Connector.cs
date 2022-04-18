@@ -149,7 +149,7 @@ namespace Anno.Rpc.Client
 #if NET40
         public static Task<string> BrokerDnsAsync(Dictionary<string, string> input, string nickName)
         {
-            return TaskEx.Run(() => 
+            return TaskEx.Run(() =>
             {
                 var micro = _microCaches.FirstOrDefault(m => m.Mi.Nickname == nickName)?.Mi;
                 return BrokerDns(input, micro);
@@ -244,12 +244,12 @@ namespace Anno.Rpc.Client
                 return FailMessage($"未找到服务【{input[Eng.NAMESPACE]}】");
             }
             string output = string.Empty;
-#region 调用链
+            #region 调用链
 
             var trace = TransmitTrace.SetTraceId(input, micro);
 
-#endregion
-#region 处理请求
+            #endregion
+            #region 处理请求
             int error = 0;
         tryRequest:
             if (error > 0)
@@ -295,7 +295,7 @@ namespace Anno.Rpc.Client
                 TracePool.EnQueue(trace, output);
             }
 
-#endregion
+            #endregion
 
             return output;
         }
@@ -320,6 +320,8 @@ namespace Anno.Rpc.Client
         static MicroCache Single(string channel)
         {
             var ms = _microCaches.FindAll(m => m.Tags.Exists(t => t == channel));
+            //if (ms == null || !ms.Any())
+            //    ms = _microCaches.FindAll(m => m.Mi.Nickname == channel);
             Random rd = new Random(Guid.NewGuid().GetHashCode());
             if (ms.Count > 0)
             {
@@ -329,7 +331,7 @@ namespace Anno.Rpc.Client
             return null;
         }
 
-#region 更新服务缓存
+        #region 更新服务缓存
         /// <summary>
         /// 服务MD5值
         /// </summary>
@@ -340,7 +342,7 @@ namespace Anno.Rpc.Client
         /// <param name="channel">管道</param>
         internal static void UpdateCache(string channel)
         {
-#region 到DNS中心取服务信息
+            #region 到DNS中心取服务信息
             try
             {
                 if (channel.Equals("cron:"))
@@ -356,11 +358,11 @@ namespace Anno.Rpc.Client
                 {
                     trans.Open();
                     microList = client.GetMicro(channel);
-                    trans.Close(); 
+                    trans.Close();
                     trans.Dispose();
                     protocol.Dispose();
                 }
-#region Micro +添加到缓存
+                #region Micro +添加到缓存
 
                 if (microList != null && microList.Count > 0)
                 {
@@ -371,12 +373,12 @@ namespace Anno.Rpc.Client
                         {
                             LasTime = now,
                             Mi = m,
-                            Tags = m.Name.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.Substring(0, t.Length - 7)).ToList()
+                            Tags = m.Name.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(t => t.EndsWith("Service", StringComparison.OrdinalIgnoreCase) ? t.Substring(0, t.Length - 7) : t).ToList()
                         });
                     });
                     _microCaches = microCaches;
 
-#region 同步服务到连接池
+                    #region 同步服务到连接池
                     var scs = new List<ServiceConfig>();
                     _microCaches.ForEach(mc =>
                     {
@@ -392,7 +394,7 @@ namespace Anno.Rpc.Client
                     });
                     ThriftFactory.Synchronization(scs);
 
-#endregion
+                    #endregion
                 }
                 else
                 {
@@ -400,13 +402,13 @@ namespace Anno.Rpc.Client
                     ThriftFactory.Synchronization(new List<ServiceConfig>());
                 }
 
-#endregion
+                #endregion
             }
             catch (Exception ex)
             {
                 Log.Log.Anno($"注册中心 {SettingService.Local.IpAddress}:{SettingService.Local.Port} " + ex.Message);
             }
-#endregion
+            #endregion
         }
         /// <summary>
         /// 刷新Md5值
@@ -430,6 +432,6 @@ namespace Anno.Rpc.Client
             }
             ServiceMd5 = "md5:" + stringBuilder.ToString().HashCode();
         }
-#endregion
+        #endregion
     }
 }

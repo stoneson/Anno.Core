@@ -22,6 +22,12 @@
 	<ItemGroup Condition="'$(TargetFramework)' != 'net40'">
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 	</ItemGroup>
+	<ItemGroup  Condition="'$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net461'">
+		<Reference Include="System" />
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.ServiceModel" />
+	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\Anno.CronNET\Anno.CronNET.csproj" />
 		<ProjectReference Include="..\Anno.Loader\Anno.Loader.csproj" />

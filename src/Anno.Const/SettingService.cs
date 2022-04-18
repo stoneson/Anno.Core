@@ -449,6 +449,50 @@ namespace Anno.Const
             }
             #endregion
 
+            #region Wcf Packages 目录 插件
+#if NETFRAMEWORK
+            var wcfBasePath = Path.Combine(Directory.GetCurrentDirectory(), "WcfPackages");
+            Console.WriteLine($"wcfBasePath：{ wcfBasePath}");
+            if (Directory.Exists(wcfBasePath))
+            {
+                foreach (DirectoryInfo plugInfo in new DirectoryInfo(wcfBasePath).GetDirectories())
+                {
+                    try
+                    {
+                        var plugName = plugInfo.Name; //$"Anno.Plugs.SerialRule";
+                        var plugNameService = $"{plugName}";
+                        var plugsPath = Path.Combine(wcfBasePath, plugName, $"{plugNameService}.dll");
+                        Console.WriteLine($"WcfPlugsPath：{ plugsPath}");
+                        if (File.Exists(plugsPath))
+                        {
+                            var assembly = Assembly.UnsafeLoadFrom(plugsPath); //装载组件
+                            if (!Dic.ContainsKey(plugNameService))
+                            {
+                                Dic.Add($"{plugNameService}", assembly);
+                                if (!string.IsNullOrEmpty(SettingService.FuncName))
+                                {
+                                    SettingService.FuncName += ",";
+                                }
+                                SettingService.FuncName += plugNameService;
+                                Console.WriteLine($"FuncName：{ SettingService.FuncName}");
+                            }
+                            if (AppSettings.IocDll.All(plug => plug != plugNameService))
+                            {
+                                AppSettings.IocDll.Add(plugNameService);
+                                Console.WriteLine($"AppSettings.IocDll.Count：{ AppSettings.IocDll.Count}");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"插件【{ plugInfo.Name}】加载出错！");
+                        Console.WriteLine($"错误信息：");
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+#endif
+            #endregion
         }
     }
 

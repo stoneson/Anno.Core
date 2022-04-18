@@ -85,7 +85,7 @@ namespace Anno.EngineData
             foreach (var svc in Const.Assemblys.Dic)
             {
                 svc.Value.GetTypes().Where(x => x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract && !x.GetTypeInfo().IsInterface
-                && baseModuleType.IsAssignableFrom(x)).ToList().ForEach(t =>
+                && baseModuleType.IsAssignableFrom(x))?.ToList().ForEach(t =>
                    {
                        var methods = t.GetMethods().Where(m => !m.DeclaringType.Equals(baseModuleType) && !m.DeclaringType.Equals(typeof(object)) && m.IsPublic && !m.IsAbstract && !m.IsConstructor && !m.IsVirtual);
                        foreach (var method in methods)
@@ -163,6 +163,89 @@ namespace Anno.EngineData
                            }
                        }
                    });
+#if NETFRAMEWORK
+                svc.Value.GetTypes().Where(x => x.GetInterfaces()?.Length> 0 
+                && x.GetInterfaces().Where(s=>s.GetCustomAttribute<System.ServiceModel.ServiceContractAttribute>() != null).Any()
+                && x.GetTypeInfo().IsClass && !x.GetTypeInfo().IsAbstract && !x.GetTypeInfo().IsInterface
+                && !baseModuleType.IsAssignableFrom(x))?.ToList().ForEach(t =>
+                   {
+                       var methods = t.GetMethods().Where(m => !m.DeclaringType.Equals(typeof(object)) && m.IsPublic);
+                       foreach (var method in methods)
+                       {
+                           Routing.RoutInfo routInfo = new Routing.RoutInfo()
+                           {
+                               RoutMethod = method,
+                               RoutModuleType = t
+                           };
+                           #region Authorization Filters
+                          // /*
+                          //* 全局过滤器
+                          //*/
+                          // routInfo.AuthorizationFilters.AddRange(Routing.Routing.GlobalAuthorizationFilters);
+                          // /*
+                          // * 模块过滤器
+                          // */
+                          // routInfo.AuthorizationFilters.AddRange(t.GetAnnoCustomAttributes<IAuthorizationFilter>());
+                          // /*
+                          // * 方法过滤器
+                          // */
+                          // routInfo.AuthorizationFilters.AddRange(method.GetAnnoCustomAttributes<IAuthorizationFilter>());
+                           #endregion
+                           #region Action Filters
+                           ///*
+                           //* 全局过滤器
+                           //*/
+                           //routInfo.ActionFilters.AddRange(Routing.Routing.GlobalActionFilters);
+                           ///*
+                           //* 模块过滤器
+                           //*/
+                           //routInfo.ActionFilters.AddRange(routInfo.RoutModuleType.GetAnnoCustomAttributes<IActionFilter>());
+                           ///*
+                           //* 方法过滤器
+                           //*/
+                           //routInfo.ActionFilters.AddRange(routInfo.RoutMethod.GetAnnoCustomAttributes<IActionFilter>());
+
+                           #endregion
+                           #region Exception Filters
+                          // /*
+                          //* 方法过滤器
+                          //*/
+                          // routInfo.ExceptionFilters.AddRange(routInfo.RoutMethod.GetAnnoCustomAttributes<IExceptionFilter>());
+                          // /*
+                          // * 模块过滤器
+                          // */
+                          // routInfo.ExceptionFilters.AddRange(routInfo.RoutModuleType.GetAnnoCustomAttributes<IExceptionFilter>());
+                          // /*
+                          //  * 全局过滤器
+                          //  */
+                          // routInfo.ExceptionFilters.AddRange(Routing.Routing.GlobalExceptionFilters);
+                           #endregion
+                           #region CacheMiddleware 
+                           ///*
+                           // * 全局Cache
+                           //*/
+                           //routInfo.CacheMiddleware.AddRange(Routing.Routing.GlobalCacheMiddleware);
+                           ///*
+                           // * 模块Cache
+                           //*/
+                           //routInfo.CacheMiddleware.AddRange(routInfo.RoutModuleType.GetCustomAttributes<Cache.CacheMiddlewareAttribute>());
+                           ///*
+                           // * 方法Cache
+                           //*/
+                           //routInfo.CacheMiddleware.AddRange(routInfo.RoutMethod.GetCustomAttributes<Cache.CacheMiddlewareAttribute>());
+                           #endregion
+                           var key = $"{t.FullName}/{method.Name}";
+                           if (Routing.Routing.Router.ContainsKey(key))
+                           {
+                               Routing.Routing.Router[key] = routInfo;
+                           }
+                           else
+                           {
+                               Routing.Routing.Router.TryAdd(key, routInfo);
+                           }
+                       }
+                   });
+#endif
             }
         }
         static bool IsAssignableFrom(Type type, string baseTypeFullName)

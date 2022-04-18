@@ -135,6 +135,42 @@ namespace Anno.Loader
                                }
                            }
                        }
+#if NETFRAMEWORK
+                       //注册WCF服务
+                       else if (t.GetCustomAttribute<System.ServiceModel.ServiceContractAttribute>() != null)
+                       {
+                           if (t.IsGenericType)
+                           {
+                               switch (lifetime)
+                               {
+                                   case "Singleton":
+                                       builder.RegisterGeneric(t).SingleInstance();
+                                       break;
+                                   case "Scoped":
+                                       builder.RegisterGeneric(t).InstancePerLifetimeScope();
+                                       break;
+                                   default:
+                                       builder.RegisterGeneric(t);
+                                       break;
+                               }
+                           }
+                           else
+                           {
+                               switch (lifetime)
+                               {
+                                   case "Singleton":
+                                       builder.RegisterType(t).SingleInstance();
+                                       break;
+                                   case "Scoped":
+                                       builder.RegisterType(t).InstancePerLifetimeScope();
+                                       break;
+                                   default:
+                                       builder.RegisterType(t);
+                                       break;
+                               }
+                           }
+                       }
+#endif
                    });
         }
         internal static bool IsAssignableFrom(Type type, string baseTypeFullName)

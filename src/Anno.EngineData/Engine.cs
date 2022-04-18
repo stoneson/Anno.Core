@@ -26,7 +26,14 @@ namespace Anno.EngineData
         {
             #region 查找路由信息RoutInfo
             var key = $"{input[Eng.NAMESPACE]}Service.{input[Eng.CLASS]}Module/{input[Eng.METHOD]}";
-            if (Routing.Routing.Router.TryGetValue(key, out Routing.RoutInfo routInfo))
+
+            var exists = Routing.Routing.Router.TryGetValue(key, out Routing.RoutInfo routInfo);
+            if (exists == false)
+            {
+                key = $"{input[Eng.NAMESPACE]}.{input[Eng.CLASS]}/{input[Eng.METHOD]}";
+                exists = Routing.Routing.Router.TryGetValue(key, out routInfo);
+            }
+            if (exists)
             {
                 try
                 {
@@ -83,7 +90,7 @@ namespace Anno.EngineData
             {
                 #region Cache
                 string key = string.Empty;
-                if (routInfo.CacheMiddleware.Count > 0)
+                if (routInfo.CacheMiddleware?.Count > 0)
                 {
                     key = GetDicStrHashCode(input);
                     if (TryGetCache(routInfo, key, out ActionResult rltCache))
@@ -92,17 +99,7 @@ namespace Anno.EngineData
                     }
                 }
                 #endregion
-                List<object> lo = new List<object>() { input };
-                module = Loader.IocLoader.Resolve<BaseModule>(routInfo.RoutModuleType);
-                var init = module.Init(input);
-                if (!init)
-                {
-                    return new ActionResult()
-                    {
-                        Status = false,
-                        Msg = "Init拦截！"
-                    };
-                }
+
                 if (routInfo.RoutMethod == null)
                 {
                     return new ActionResult()
@@ -112,62 +109,111 @@ namespace Anno.EngineData
                         Msg = $"在【{input[Eng.NAMESPACE]}】中找不到【{input[Eng.CLASS]}.{input[Eng.METHOD]}】！"
                     };
                 }
-                #region Authorization
-                for (int i = 0; i < routInfo.AuthorizationFilters.Count; i++)
+                if (typeof(BaseModule).IsAssignableFrom(routInfo.RoutModuleType))
                 {
-                    routInfo.AuthorizationFilters[i].OnAuthorization(module);
-                    if (!module.Authorized)
+                    List<object> lo = new List<object>() { input };
+                    module = Loader.IocLoader.Resolve<BaseModule>(routInfo.RoutModuleType);
+                    var init = module.Init(input);
+                    if (!init)
                     {
-                        return module.ActionResult == null ? new ActionResult()
+                        return new ActionResult()
                         {
                             Status = false,
-                            OutputData = 401,
-                            Msg = "401,Unauthrized"
-                        } : module.ActionResult
-                        ;
+                            Msg = "Init拦截！"
+                        };
                     }
-                }
-                #endregion
-                for (int i = 0; i < routInfo.ActionFilters.Count; i++)
-                {
-                    routInfo.ActionFilters[i].OnActionExecuting(module);
-                }
-                #region 调用业务方法
-                object rltCustomize = null;
-                if (routInfo.ReturnTypeIsTask)
-                {
-                    var rlt = routInfo.RoutMethod.FastInvoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task;
-                    //(routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task);
-                    rltCustomize = FastReflection.FastGetValue("Result", rlt);// routInfo.RoutMethod.ReturnType.GetProperty("Result").GetValue(rlt, null);
-                }
-                else
-                {
-                    rltCustomize = routInfo.RoutMethod.FastInvoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
-                    //routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
-                }
+                    #region Authorization
+                    for (int i = 0; i < routInfo.AuthorizationFilters.Count; i++)
+                    {
+                        routInfo.AuthorizationFilters[i].OnAuthorization(module);
+                        if (!module.Authorized)
+                        {
+                            return module.ActionResult == null ? new ActionResult()
+                            {
+                                Status = false,
+                                OutputData = 401,
+                                Msg = "401,Unauthrized"
+                            } : module.ActionResult
+                            ;
+                        }
+                    }
+                    #endregion
+                    #region OnActionExecuting
+                    for (int i = 0; i < routInfo.ActionFilters.Count; i++)
+                    {
+                        routInfo.ActionFilters[i].OnActionExecuting(module);
+                    }
+                    #endregion
 
-                if (routInfo.ReturnTypeIsIActionResult && rltCustomize != null)
-                {
-                    module.ActionResult = rltCustomize as ActionResult;
+                    #region 调用业务方法
+                    object rltCustomize = null;
+                    if (routInfo.ReturnTypeIsTask)
+                    {
+                        var rlt = routInfo.RoutMethod.FastInvoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task;
+                        //(routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task);
+                        rltCustomize = FastReflection.FastGetValue("Result", rlt);// routInfo.RoutMethod.ReturnType.GetProperty("Result").GetValue(rlt, null);
+                    }
+                    else
+                    {
+                        rltCustomize = routInfo.RoutMethod.FastInvoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
+                        //routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
+                    }
+
+                    if (routInfo.ReturnTypeIsIActionResult && rltCustomize != null)
+                    {
+                        module.ActionResult = rltCustomize as ActionResult;
+                    }
+                    else
+                    {
+                        module.ActionResult = new ActionResult(true, rltCustomize);
+                    }
+                    #endregion
+
+                    #region OnActionExecuted
+                    for (int i = (routInfo.ActionFilters.Count - 1); i >= 0; i--)
+                    {
+                        routInfo.ActionFilters[i].OnActionExecuted(module);
+                    }
+                    #endregion
+                    #region CacheMiddleware
+                    if (routInfo.CacheMiddleware.Count > 0)
+                    {
+                        AddCache(routInfo, key, module.ActionResult);
+                    }
+                    #endregion
+
+                    return module.ActionResult;
                 }
                 else
                 {
-                    module.ActionResult = new ActionResult(true, rltCustomize);
+                    #region 调用业务方法
+                    object rltCustomize = null;
+                    if (routInfo.ReturnTypeIsTask)
+                    {
+                        var rlt = routInfo.RoutMethod.FastInvoke(routInfo.RoutModuleType, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task;
+                        //(routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray()) as Task);
+                        rltCustomize = FastReflection.FastGetValue("Result", rlt);// routInfo.RoutMethod.ReturnType.GetProperty("Result").GetValue(rlt, null);
+                    }
+                    else
+                    {
+                        rltCustomize = routInfo.RoutMethod.FastInvoke(routInfo.RoutModuleType, DicToParameters(routInfo.RoutMethod, input).ToArray());
+                        //routInfo.RoutMethod.Invoke(module, DicToParameters(routInfo.RoutMethod, input).ToArray());
+                    }
+
+                    if (routInfo.ReturnTypeIsIActionResult && rltCustomize != null)
+                    {
+                        return rltCustomize as ActionResult;
+                    }
+                    else
+                    {
+                        return new ActionResult(true, rltCustomize);
+                    }
+                    #endregion
                 }
-                #endregion
-                for (int i = (routInfo.ActionFilters.Count - 1); i >= 0; i--)
-                {
-                    routInfo.ActionFilters[i].OnActionExecuted(module);
-                }
-                if (routInfo.CacheMiddleware.Count > 0)
-                {
-                    AddCache(routInfo, key, module.ActionResult);
-                }
-                return module.ActionResult;
             }
             catch (Exception ex)
             {
-                if (routInfo.RoutMethod != null)
+                if (routInfo.RoutMethod != null && module != null)
                 {
                     foreach (var ef in routInfo.ExceptionFilters)
                     {
@@ -392,9 +438,9 @@ namespace Anno.EngineData
                                     var value = Newtonsoft.Json.JsonConvert.DeserializeObject(valueStr, propertyInfo.PropertyType);
                                     propertyInfo.SetValue(body, value, null);
                                 }
+                                isExists = true;
                             }
                             catch { }
-                            isExists = true;
                             break;
                         }
                     }
