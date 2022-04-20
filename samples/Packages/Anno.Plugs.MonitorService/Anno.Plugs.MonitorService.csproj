@@ -1,34 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>$(StandardTfms);net461</TargetFrameworks>
-    <Version>$(Version)</Version>
-    <PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>
-    <Authors>Du Yanming</Authors>
-    <Company>Du Yanming</Company>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>服务资源监控扩展插件</Description>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <Content Include="$(SolutionDir)LICENSE" Link="LICENSE" PackagePath="\" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Include="logo.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFrameworks>$(StandardTfms);net461</TargetFrameworks>
+		<Version>$(Version)</Version>
+		<PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>
+		<Authors>Du Yanming</Authors>
+		<Company>Du Yanming</Company>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>$(SolutionDir)key.snk</AssemblyOriginatorKeyFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Description>服务资源监控扩展插件</Description>
+		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="$(SolutionDir)LICENSE" Link="LICENSE" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="logo.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
+	</ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
     <Company>Du yanming</Company>
     <Product>Anno 日志</Product>
     <Description>分布式开发框架 日志</Description>
+	  <PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

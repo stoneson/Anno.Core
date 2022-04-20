@@ -4,6 +4,7 @@
 		<TargetFrameworks>$(StandardTfmsGrpc);net461</TargetFrameworks>
 		<Version>$(Version)</Version>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

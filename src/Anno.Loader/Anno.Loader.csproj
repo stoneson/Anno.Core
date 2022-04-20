@@ -8,6 +8,7 @@
 		<Company>Du yanming</Company>
 		<Product>Anno IOC  DI</Product>
 		<Description>分布式开发框架 依赖注入</Description>
+		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">

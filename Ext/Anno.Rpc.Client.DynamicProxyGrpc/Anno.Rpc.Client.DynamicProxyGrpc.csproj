@@ -3,9 +3,10 @@
 	<PropertyGroup>
 		<TargetFrameworks>$(StandardTfmsGrpc);net461</TargetFrameworks>
 		<Description>Anno.Rpc.Client.DynamicProxyGrpc,客户端RPC接口代理</Description>
-		<PackageId>Anno.Rpc.Client.DynamicProxyGrpc</PackageId>
-		<Authors>Du yanming</Authors>
+		<!--<PackageId>Anno.Rpc.Client.DynamicProxyGrpc</PackageId>
+		<Authors>Du yanming</Authors>-->
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

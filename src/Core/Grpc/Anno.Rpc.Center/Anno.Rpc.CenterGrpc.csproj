@@ -8,6 +8,7 @@
     <Company>Du yanming</Company>
     <Product>Anno 框架 Rpc Thrift</Product>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	  <PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
   </PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net40'">
