@@ -33,7 +33,7 @@ namespace Anno.EventBus.Executor.Kafka
             //配置参数校验
             MQConfig.Check();
             //message<key,value> 这个key目前没用，做消息指定分区投放有用的；我们直接用null
-            MessageProducer = new ProducerBuilder<string, string>(MQConfig.Build()).Build();
+            //MessageProducer = new ProducerBuilder<string, string>(MQConfig.Build()).Build();
         }
         /// <summary>
         /// 构造方法
@@ -74,6 +74,8 @@ namespace Anno.EventBus.Executor.Kafka
             {
                 MQConfig.CompleteHandler = DefaultProducerHandler;
             }
+            if (MessageProducer == null)
+                MessageProducer = new ProducerBuilder<string, string>(MQConfig.Build()).Build();
             var bodyMsg = Newtonsoft.Json.JsonConvert.SerializeObject(message);
             //消息发送
             MessageProducer.Produce(MQConfig.QueueName, new Message<string, string>()

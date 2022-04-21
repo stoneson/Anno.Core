@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NET451
+using System;
 using System.Collections.Generic;
 using System.Text;
 using BenchmarkDotNet.Attributes;
@@ -63,3 +64,4 @@ namespace ConsoleTest
         }
     }
 }
+#endif

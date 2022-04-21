@@ -46,7 +46,7 @@ namespace Anno.EventBus.Executor.Active
             {
                 throw new MQException("未指定连接消息队列的地址");
             }
-
+            MQConfig.BrokerUri = MQConfig.BrokerUri.Trim();
             //创建连接对象
             if (ConnectionFactory == null)
             {
@@ -54,6 +54,8 @@ namespace Anno.EventBus.Executor.Active
                 {
                     if (ConnectionFactory == null)
                     {
+                        if (!MQConfig.BrokerUri.StartsWith("tcp://", StringComparison.OrdinalIgnoreCase))
+                            MQConfig.BrokerUri = "tcp://" + MQConfig.BrokerUri;
                         ConnectionFactory = new ConnectionFactory(MQConfig.BrokerUri);
                     }
                 }
@@ -97,6 +99,7 @@ namespace Anno.EventBus.Executor.Active
                     {
                         throw ex;
                     }
+                    WriteError("正在尝试连接服务实例" + (defaultValue - tryOpenCount + 1) + "次失败，异常信息为：" + ex.Message);
                     Console.WriteLine("正在尝试连接服务实例" + (defaultValue - tryOpenCount + 1) + "次失败，异常信息为：" + ex.Message);
                     tryOpenCount -= 1;
                     System.Threading.Thread.Sleep(30 * 1000);

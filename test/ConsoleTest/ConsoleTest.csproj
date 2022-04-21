@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0;net461</TargetFrameworks>
+    <TargetFrameworks>net6.0;net461;net451</TargetFrameworks>
   </PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net451'">

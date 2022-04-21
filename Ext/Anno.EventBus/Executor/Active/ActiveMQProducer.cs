@@ -36,16 +36,10 @@ namespace Anno.EventBus.Executor.Active
         /// <summary>
         /// 构造方法
         /// </summary>
-        public ActiveMQProducer() 
+        public ActiveMQProducer()
         {
-            this.MQConfig = new  ActiveProducerConfig();
-            //配置参数校验
-            MQConfig.Check();
-        }
-        public ActiveMQProducer(ActiveProducerConfig config)
-        {
-            if (config != null)
-                this.MQConfig = config;
+            if (MQConfig == null)
+                this.MQConfig = new ActiveProducerConfig();
             //配置参数校验
             MQConfig.Check();
             if (!IsOpen)
@@ -53,8 +47,13 @@ namespace Anno.EventBus.Executor.Active
                 //默认尝试连接3次
                 TryRequireOpen(3);
             }
-            //创建producer
-            MessageProducer = CreateProducer(config);
+            ////创建producer
+            //MessageProducer = CreateProducer(MQConfig);
+        }
+        public ActiveMQProducer(ActiveProducerConfig config) : this()
+        {
+            if (config != null)
+                this.MQConfig = config;
         }
 
         /// <summary>
@@ -139,6 +138,11 @@ namespace Anno.EventBus.Executor.Active
             if (message == null || string.IsNullOrWhiteSpace(message.Value))
             {
                 throw new MQException("发送消息内容为空");
+            }
+            //创建producer
+            if (MessageProducer == null)
+            {
+                MessageProducer = CreateProducer(MQConfig);
             }
             var bodyMsg = Newtonsoft.Json.JsonConvert.SerializeObject(message);
             //创建发送的消息

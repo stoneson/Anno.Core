@@ -56,12 +56,18 @@ namespace Anno.EventBus.Executor.Active
             //普通的queue
             if (Config.ActiveMQType == ActiveMQTypeEnum.Queue)
             {
-                consumer = Session.CreateConsumer(new ActiveMQQueue(queueName), Config.MQFilterName);
+                if (string.IsNullOrWhiteSpace(Config.MQFilterName))
+                    consumer = Session.CreateConsumer(new ActiveMQQueue(queueName));
+                else
+                    consumer = Session.CreateConsumer(new ActiveMQQueue(queueName), Config.MQFilterName);
             }
             //广播模式
             else if (Config.ActiveMQType == ActiveMQTypeEnum.Topic)
             {
-                consumer = Session.CreateConsumer(new ActiveMQTopic(queueName), Config.MQFilterName);
+                if (string.IsNullOrWhiteSpace(Config.MQFilterName))
+                    consumer = Session.CreateConsumer(new ActiveMQTopic(queueName));
+                else
+                    consumer = Session.CreateConsumer(new ActiveMQTopic(queueName), Config.MQFilterName);
             }
             else
             {

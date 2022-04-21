@@ -18,7 +18,7 @@ namespace Anno.EventBus
     /// </summary>
     public class EventBusActiveMQ : EventBusMemory
     {
-        //private const string BrokerName = "EventBus";
+        private const string BrokerName = "EventBus";
         private string _queueName = "BusQueue";
 
         /// <summary>
@@ -72,6 +72,7 @@ namespace Anno.EventBus
             emsg.Tag = eneity.GetType().Name;
 
             producerChannel.MQConfig.QueueName = _queueName;
+            producerChannel.MQConfig.MQFilterName = BrokerName;
             producerChannel.Producer(emsg);
         }
 
