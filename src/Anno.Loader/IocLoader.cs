@@ -109,11 +109,19 @@ namespace Anno.Loader
         {
             if (iocType == IocType.Autofac)
             {
+                if (_autofacContainer == null)
+                {
+                    Build();
+                }
                 return _autofacContainer.Resolve<T>();
             }
 #if NETSTANDARD
             else if (iocType == IocType.DependencyInjection)
             {
+                if (_dIServiceProvider == null)
+                {
+                    Build();
+                }
                 return _dIServiceProvider.GetService<T>();
             }
 #endif

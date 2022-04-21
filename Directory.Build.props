@@ -16,7 +16,7 @@
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<RepositoryType>git</RepositoryType>
-		<RepositoryUrl>https://gitee.com/stoneson/Anno.Core</RepositoryUrl>
+		<RepositoryUrl>https://gitee.com/stoneson/anno.core</RepositoryUrl>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<packageTypes>
@@ -27,18 +27,18 @@
 	<PropertyGroup>
 		<!--<PackageIconUrl>https://www.nuget.org/profiles/stoneson/avatar?imageSize=512</PackageIconUrl>-->
 		<PackageProjectUrl>https://www.nuget.org/profiles/stoneson</PackageProjectUrl>
-		<!--<PackageLicenseUrl>https://gitee.com/stoneson/Anno.Core/blob/master/LICENSE</PackageLicenseUrl>-->
+		<!--<PackageLicenseUrl>https://gitee.com/stoneson/anno.core/blob/master/LICENSE</PackageLicenseUrl>-->
 		<PackageLicenseExpression />
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<!--<RepositoryType>git</RepositoryType>-->
-		<!--<RepositoryUrl>https://gitee.com/stoneson/Anno.Core</RepositoryUrl>-->
+		<!--<RepositoryUrl>https://gitee.com/stoneson/anno.core</RepositoryUrl>-->
 		<Company>Vive</Company>
 		<Authors>Stoneson</Authors>
 		<PackagePrefix>Vive</PackagePrefix>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<!--<IsPackable>true</IsPackable>-->
 		<!--<PackageId>$(AssemblyName)</PackageId>-->
-		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
+		<!--<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>-->
 		<Product>Anno 是一个微服务快速开发框架，底层通讯可以随意切换 grpc、thrift。自带服务发现、调用链追踪、Cron 调度、限流、事件总线、CQRS 、DDD、类似MVC的开发体验，插件化开发</Product>
 		<Copyright>Copyright © Stoneson All Rights Reserved.</Copyright>
 		<PackageTags>Vive;Anno;分布式开发框架;分布式;开发框架;微服务;micro-services; Micro Service;net6.0;net45;net40;net461;</PackageTags>

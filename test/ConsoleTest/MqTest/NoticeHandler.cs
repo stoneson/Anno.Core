@@ -9,14 +9,14 @@ namespace ConsoleTest.MqTest
     {
         public void Handler(Notice entity)
         {
-            Console.WriteLine($"你好{entity.Name},{entity.Msg}");
+            Console.WriteLine($"执行时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss FFFFF")}:【你好{entity.Name},{entity.Msg}】");
         }
     }
     public class Mailend : IEventHandler<Notice>
     {
         public void Handler(Notice entity)
         {
-            Console.WriteLine($"消息发送完毕！");
+            Console.WriteLine($"执行时间：{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss FFFFF")}:【消息发送完毕！{entity?.Name},{entity?.Msg}】");
         }
     }
 }

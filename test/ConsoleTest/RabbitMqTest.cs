@@ -4,6 +4,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ConsoleTest.MqTest;
 using Anno.EventBus;
+using Anno.Loader;
+using Autofac;
 
 namespace ConsoleTest
 {
@@ -11,27 +13,36 @@ namespace ConsoleTest
     {
         public void Handle()
         {
-            //IEventBus bus = Anno.EventBus.RabbitMQ.RabbitMQEventBus.Instance;
-            IEventBus bus = EventBus.Instance;
-            bus.SubscribeAll();
-            //Notice notice = new Notice()
-            //{
-            //    Id = 1100,
-            //    EventSource = this,
-            //    Name = "杜燕明",
-            //    Msg = "后天放假，祝节假日快乐！"
-            //};
+            var builder = Anno.Loader.IocLoader.GetAutoFacContainerBuilder();
 
-            //TT tt = new TT()
-            //{
-            //    Id = 1100,
-            //    EventSource = notice,
-            //    Name = "TT杜燕明",
-            //    Msg = "TT后天放假，祝节假日快乐！"
-            //};
-            //bus.Publish(notice);
+            builder.RegisterType<EventBusMemory>().SingleInstance();
+            builder.RegisterType<EventBusRabbitMQ>().SingleInstance();
+            builder.RegisterType<EventBusKafka>().SingleInstance();
 
-            //bus.Publish(tt);
+            //builder.Register<IEventBus>(p => p.Resolve<EventBusMemory>()).SingleInstance();
+            builder.Register<IEventBus>(p => p.Resolve<EventBusRabbitMQ>()).SingleInstance();
+            //builder.Register<IEventBus>(p => p.Resolve<EventBusKafka>()).SingleInstance();
+
+            var bus = Anno.Loader.IocLoader.Resolve<IEventBus>();
+            bus.SubscribeAll(typeof(RabbitMqTest).Assembly);
+            Notice notice = new Notice()
+            {
+                Id = 1100,
+                EventSource = this,
+                Name = "杜燕明",
+                Msg = "后天放假，祝节假日快乐！发送时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss FFFFF")
+            };
+
+            TT tt = new TT()
+            {
+                Id = 1100,
+                EventSource = notice,
+                Name = "TT杜燕明",
+                Msg = "TT后天放假，祝节假日快乐！发送时间：" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss FFFFF")
+            };
+            bus.Publish(notice);
+            bus.Publish(tt);
+
 
         }
     }
