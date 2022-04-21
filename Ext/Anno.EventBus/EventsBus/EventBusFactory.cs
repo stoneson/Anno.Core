@@ -28,7 +28,7 @@ namespace Anno.EventBus
         /// 消息总线实例
         /// </summary>
         /// <returns></returns>
-        public static IEventBus GetEventBus()
+        public static IEventBus CreateEventBus()
         {
             if (MQType == Model.Enums.MQTypeEnum.RabbitQM)
             {
@@ -48,7 +48,7 @@ namespace Anno.EventBus
         /// 消息总线实例
         /// </summary>
         /// <returns></returns>
-        public static IEventBus GetEventBus(string config)
+        public static IEventBus CreateEventBus(string config)
         {
             if (MQType == Model.Enums.MQTypeEnum.RabbitQM)
             {

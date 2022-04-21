@@ -27,7 +27,7 @@ namespace ConsoleTest
 
             //var bus =Anno.Loader.IocLoader.Resolve<IEventBus>();
 
-            var bus = Anno.EventBus.EventBusFactory.GetEventBus();
+            var bus = Anno.EventBus.EventBusFactory.CreateEventBus();
             Console.WriteLine(bus.MQType);
             bus.SubscribeAll(typeof(RabbitMqTest).Assembly);
             Notice notice = new Notice()
