@@ -13,19 +13,22 @@ namespace ConsoleTest
     {
         public void Handle()
         {
-            var builder = Anno.Loader.IocLoader.GetAutoFacContainerBuilder();
+            //var builder = Anno.Loader.IocLoader.GetAutoFacContainerBuilder();
 
-            builder.RegisterType<EventBusMemory>().SingleInstance();
-            builder.RegisterType<EventBusRabbitMQ>().SingleInstance();
-            builder.RegisterType<EventBusKafka>().SingleInstance();
-            builder.RegisterType<EventBusActiveMQ>().SingleInstance();
+            //builder.RegisterType<EventBusMemory>().SingleInstance();
+            //builder.RegisterType<EventBusRabbitMQ>().SingleInstance();
+            //builder.RegisterType<EventBusKafka>().SingleInstance();
+            //builder.RegisterType<EventBusActiveMQ>().SingleInstance();
 
-            //builder.Register<IEventBus>(p => p.Resolve<EventBusMemory>()).SingleInstance();
+            ////builder.Register<IEventBus>(p => p.Resolve<EventBusMemory>()).SingleInstance();
             //builder.Register<IEventBus>(p => p.Resolve<EventBusRabbitMQ>()).SingleInstance();
-            //builder.Register<IEventBus>(p => p.Resolve<EventBusKafka>()).SingleInstance();
-            //builder.Register<IEventBus>(p => p.Resolve<EventBusActiveMQ>()).SingleInstance();
+            ////builder.Register<IEventBus>(p => p.Resolve<EventBusKafka>()).SingleInstance();
+            ////builder.Register<IEventBus>(p => p.Resolve<EventBusActiveMQ>()).SingleInstance();
 
-            var bus = EventBusActiveMQ.Instance;// Anno.Loader.IocLoader.Resolve<IEventBus>();
+            //var bus =Anno.Loader.IocLoader.Resolve<IEventBus>();
+
+            var bus = Anno.EventBus.EventBusFactory.GetEventBus();
+            Console.WriteLine(bus.MQType);
             bus.SubscribeAll(typeof(RabbitMqTest).Assembly);
             Notice notice = new Notice()
             {

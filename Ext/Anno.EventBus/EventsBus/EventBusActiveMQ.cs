@@ -49,7 +49,7 @@ namespace Anno.EventBus
                 return _instance;
             }
         }
-
+        public override Model.Enums.MQTypeEnum MQType => Model.Enums.MQTypeEnum.ActiveMQ;
 
         public EventBusActiveMQ()
         {
@@ -70,6 +70,7 @@ namespace Anno.EventBus
             var emsg = new Model.Message.ActiveMessageContent(JsonConvert.SerializeObject(eneity));
             emsg.Key = eneity.GetType().Name;
             emsg.Tag = eneity.GetType().Name;
+            emsg.Value = JsonConvert.SerializeObject(emsg);
 
             producerChannel.MQConfig.QueueName = _queueName;
             producerChannel.MQConfig.MQFilterName = BrokerName;
@@ -103,7 +104,8 @@ namespace Anno.EventBus
 
                 subscribeChannel.Subscribe(_queueName, (msg) =>
                  {
-                     HandleEvent(msg.Tag, msg.Value);
+                     var rmsg = JsonConvert.DeserializeObject<Model.Message.MessageContent>(msg.Value);
+                     HandleEvent(rmsg.Tag, rmsg.Value);
                  });
             }
         }

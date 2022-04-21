@@ -259,7 +259,7 @@ namespace Anno.EventBus.Executor.Kafka
                                 }
                                 //接收到的消息记录Log
                                 //WriteLog($"Received message at {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
-                                var bodyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<ActiveMessageContent>(consumeResult.Message.Value);
+                                var bodyMsg = new KafkaMessageContent(consumeResult.Message.Value);
                                 bodyMsg.Key = consumeResult.Message.Key != null ? consumeResult.Message.Key.ToString() : bodyMsg.Key;
                                 //消息消费
                                 action?.Invoke(bodyMsg);

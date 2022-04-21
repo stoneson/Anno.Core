@@ -7,6 +7,9 @@ namespace Anno.EventBus
 {
     public delegate void ConsumeErrorNotice(string exchange, string routingKey, Exception exception, string message);
 
+    /// <summary>
+    /// 队列消息总线
+    /// </summary>
     public interface IEventBus
     {
         ConsumeErrorNotice ErrorNotice { get; set; }
@@ -18,6 +21,8 @@ namespace Anno.EventBus
         void Publish<TEventData>(TEventData eneity) where TEventData : IEventData;
 
         void PublishAsync<T>(T eneity) where T : IEventData;
+
+        Model.Enums.MQTypeEnum MQType { get; }
     }
 
     public interface IEventData : Model.Message.IMessageContent

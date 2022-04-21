@@ -45,6 +45,8 @@ namespace Anno.EventBus
             }
         }
 
+        public virtual Model.Enums.MQTypeEnum MQType => Model.Enums.MQTypeEnum.None;
+
         public ConsumeErrorNotice ErrorNotice { get; set; }
 
         public virtual void PublishAsync<T>(T eneity) where T : IEventData

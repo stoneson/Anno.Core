@@ -119,7 +119,7 @@ namespace Anno.EventBus.Executor.Active
             {
                 if (msg is ITextMessage text)
                 {
-                    var bodyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<ActiveMessageContent>(text.Text);
+                    var bodyMsg = new ActiveMessageContent(text.Text);
                     action?.Invoke(bodyMsg);
                 }
             });

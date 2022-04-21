@@ -27,7 +27,7 @@ namespace Anno.EventBus.Executor.Kafka
         /// <summary>
         /// 构造方法
         /// </summary>
-        public KafkaProducer() 
+        public KafkaProducer()
         {
             this.MQConfig = new KafkaProducerConfig();
             //配置参数校验
@@ -39,7 +39,7 @@ namespace Anno.EventBus.Executor.Kafka
         /// 构造方法
         /// </summary>
         /// <param name="config"></param>
-        public KafkaProducer(KafkaProducerConfig config):this()
+        public KafkaProducer(KafkaProducerConfig config) : this()
         {
             if (config != null)
                 this.MQConfig = config;
@@ -62,13 +62,13 @@ namespace Anno.EventBus.Executor.Kafka
                 throw new MQException("messageContent 参数类型不是KafkaMessageContent");
             }
             var message = (KafkaMessageContent)messageContent;
-            if (message==null || string.IsNullOrWhiteSpace(message.Value))
+            if (message == null || string.IsNullOrWhiteSpace(message.Value))
             {
                 throw new MQException("发送消息内容为空");
             }
             if (string.IsNullOrWhiteSpace(message.Key))
             {
-                message.Key=Guid.NewGuid().ToString();
+                message.Key = Guid.NewGuid().ToString();
             }
             if (MQConfig.CompleteHandler == null)
             {
@@ -76,12 +76,11 @@ namespace Anno.EventBus.Executor.Kafka
             }
             if (MessageProducer == null)
                 MessageProducer = new ProducerBuilder<string, string>(MQConfig.Build()).Build();
-            var bodyMsg = Newtonsoft.Json.JsonConvert.SerializeObject(message);
             //消息发送
             MessageProducer.Produce(MQConfig.QueueName, new Message<string, string>()
             {
-                Key= message.Key,
-                Value = bodyMsg
+                Key = message.Key,
+                Value = message.Value
             }, MQConfig.CompleteHandler);
             MessageProducer.Flush(TimeSpan.FromSeconds(10));
         }
@@ -101,7 +100,6 @@ namespace Anno.EventBus.Executor.Kafka
             {
                 key = Guid.NewGuid().ToString();
             }
-            var messagec = new KafkaMessageContent(message,key);
             var deliveryReport = MessageProducer.ProduceAsync(MQConfig.QueueName, new Message<string, string> { Key = key, Value = message });
             deliveryReport.ContinueWith(task =>
             {

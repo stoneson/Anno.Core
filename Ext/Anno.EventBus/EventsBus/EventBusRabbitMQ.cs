@@ -51,6 +51,7 @@ namespace Anno.EventBus
                 return _instance;
             }
         }
+        public override Model.Enums.MQTypeEnum MQType => Model.Enums.MQTypeEnum.RabbitQM;
 
         public EventBusRabbitMQ()
         {
@@ -72,6 +73,7 @@ namespace Anno.EventBus
             emsg.RoutingKey = eneity.GetType().Name;
             emsg.Tag = eneity.GetType().Name;
 
+            emsg.Value = JsonConvert.SerializeObject(emsg);
             producerChannel.Producer(emsg);
         }
 
@@ -106,7 +108,8 @@ namespace Anno.EventBus
 
                 subscribeChannel.Subscribe(_queueName, (msg) =>
                  {
-                     HandleEvent(msg.Tag, msg.Value);
+                     var rmsg = JsonConvert.DeserializeObject<Model.Message.MessageContent>(msg.Value);
+                     HandleEvent(rmsg.Tag, rmsg.Value);
                  });
             }
         }

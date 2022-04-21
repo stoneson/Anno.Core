@@ -144,9 +144,8 @@ namespace Anno.EventBus.Executor.Active
             {
                 MessageProducer = CreateProducer(MQConfig);
             }
-            var bodyMsg = Newtonsoft.Json.JsonConvert.SerializeObject(message);
             //创建发送的消息
-            var messageBody = CreateMessage(MessageProducer, bodyMsg);
+            var messageBody = CreateMessage(MessageProducer, message.Value);
 
             if (messageBody != null)
             {

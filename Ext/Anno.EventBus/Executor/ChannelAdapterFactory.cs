@@ -5,8 +5,11 @@ using Anno.EventBus.Interface;
 using System;
 using System.Collections.Generic;
 
-namespace Anno.EventBus.Executor
+namespace Anno.EventBus
 {
+    /// <summary>
+    /// 消息队列创建工厂
+    /// </summary>
     public class ChannelAdapterFactory
     {
         /// <summary>
@@ -22,7 +25,7 @@ namespace Anno.EventBus.Executor
         }
 
         /// <summary>
-        /// 获取生成者实例
+        /// 获取生产者实例
         /// </summary>
         /// <returns></returns>
         public static IProducerChannel GetProducerChannel()
@@ -55,7 +58,7 @@ namespace Anno.EventBus.Executor
         }
 
         /// <summary>
-        /// 获取生成者实例
+        /// 获取生产者实例
         /// </summary>
         /// <param name="type">MQ类型[1=ActiveMQ;2=Kafka;3=RabbitQM]可以看MQTypeEnum</param>
         /// <param name="config"></param>
@@ -67,7 +70,7 @@ namespace Anno.EventBus.Executor
             return null;
         }
         /// <summary>
-        /// 获取生成者实例
+        /// 获取生产者实例
         /// </summary>
         /// <param name="type">MQ类型[1=ActiveMQ;2=Kafka;3=RabbitQM]可以看MQTypeEnum</param>
         /// <param name="config"></param>

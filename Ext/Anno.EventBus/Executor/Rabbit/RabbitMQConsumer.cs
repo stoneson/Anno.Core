@@ -162,9 +162,8 @@ namespace Anno.EventBus.Executor.Rabbit
 #else
                     var message = Encoding.UTF8.GetString(ea.Body.ToArray());
 #endif
-                   //messageContent.Value = message;
-                    var bodyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<RabbitMessageContent>(message);
-                    action?.Invoke(bodyMsg);
+                    messageContent.Value = message;
+                    action?.Invoke(messageContent);
                     // Console.WriteLine($"[Simple]received：{message}");
                 }
                 catch (Exception exception)

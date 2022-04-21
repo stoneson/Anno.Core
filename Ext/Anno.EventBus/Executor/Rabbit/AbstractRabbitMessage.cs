@@ -157,7 +157,7 @@ namespace Anno.EventBus.Executor.Rabbit
         /// <param name="message"></param>
         /// <returns></returns>
         protected virtual byte[] GetMessage(RabbitMessageContent messageContent) =>
-            System.Text.Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(messageContent));
+            System.Text.Encoding.UTF8.GetBytes(messageContent.Value);
 
         /// <summary>
         /// 获取连接通道模板
