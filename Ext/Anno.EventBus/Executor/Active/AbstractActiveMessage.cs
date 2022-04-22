@@ -28,9 +28,9 @@ namespace Anno.EventBus.Executor.Active
         /// </summary>
         protected ISession Session { get; set; }
         /// <summary>
-        /// 消息消费者
+        /// 消息消费者集合
         /// </summary>
-        protected IMessageConsumer Consumer { get; set; }
+        protected System.Collections.Concurrent.ConcurrentDictionary<string, IMessageConsumer> DicConsumer { get; set; }
 
         /// <summary>
         /// 是否打开连接
@@ -77,6 +77,8 @@ namespace Anno.EventBus.Executor.Active
 
             //打开状态
             IsOpen = true;
+
+            DicConsumer = new System.Collections.Concurrent.ConcurrentDictionary<string, IMessageConsumer>(StringComparer.InvariantCulture);
         }
 
         /// <summary>
@@ -99,7 +101,6 @@ namespace Anno.EventBus.Executor.Active
                     {
                         throw ex;
                     }
-                    WriteError("正在尝试连接服务实例" + (defaultValue - tryOpenCount + 1) + "次失败，异常信息为：" + ex.Message);
                     Console.WriteLine("正在尝试连接服务实例" + (defaultValue - tryOpenCount + 1) + "次失败，异常信息为：" + ex.Message);
                     tryOpenCount -= 1;
                     System.Threading.Thread.Sleep(30 * 1000);

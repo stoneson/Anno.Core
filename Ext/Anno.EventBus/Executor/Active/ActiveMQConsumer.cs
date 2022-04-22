@@ -11,22 +11,13 @@ namespace Anno.EventBus.Executor.Active
 {
     public class ActiveMQConsumer : AbstractActiveMessage<ActiveSubscribeConfig>, ISubscribeChannel
     {
-        ///// <summary>
-        ///// 消息队列参数配置
-        ///// </summary>
-        //public new ActiveSubscribeConfig MQConfig { get; set; }
-        //SubscribeConfig IBaseMessaegHandler<SubscribeConfig>.MQConfig
-        //{
-        //    get => MQConfig;
-        //    set { MQConfig = value as ActiveSubscribeConfig; }
-        //}
-
         /// <summary>
         /// 构造方法
         /// </summary>
         public ActiveMQConsumer()
         {
-            this.MQConfig = new ActiveSubscribeConfig();
+            if (MQConfig == null)
+                this.MQConfig = new ActiveSubscribeConfig();
             //配置参数校验
             MQConfig.Check();
         }
@@ -34,12 +25,10 @@ namespace Anno.EventBus.Executor.Active
         /// 构造方法
         /// </summary>
         /// <param name="config"></param>
-        public ActiveMQConsumer(ActiveSubscribeConfig config)
+        public ActiveMQConsumer(ActiveSubscribeConfig config) : this()
         {
             if (config != null)
                 this.MQConfig = config;
-            //配置参数校验
-            MQConfig.Check();
         }
 
         /// <summary>
@@ -73,6 +62,7 @@ namespace Anno.EventBus.Executor.Active
             {
                 throw new MQException(string.Format("无法识别的MQMode类型:{0}", Config.ActiveMQType));
             }
+            DicConsumer[queueName + Config.MQFilterName] = consumer;
             return consumer;
         }
 
@@ -81,10 +71,14 @@ namespace Anno.EventBus.Executor.Active
         /// </summary>
         public override void Close()
         {
-            Consumer?.Close();
+            foreach (var item in DicConsumer)
+            {
+                item.Value.Close();
+            }
+            DicConsumer?.Clear();
+
             Session?.Close();
             Connection?.Close();
-            Consumer = null;
             Session = null;
             Connection = null;
             IsOpen = false;
@@ -109,20 +103,18 @@ namespace Anno.EventBus.Executor.Active
                 //默认尝试连接3次
                 TryRequireOpen(3);
             }
-
-            if (Consumer == null)
+            if (!DicConsumer.TryGetValue(queueName + MQConfig.MQFilterName, out var consumer))
             {
-                Consumer = CreateConsumer(queueName, MQConfig);
-            }
-
-            Consumer.Listener += new MessageListener(msg =>
-            {
-                if (msg is ITextMessage text)
+                consumer = CreateConsumer(queueName, MQConfig);
+                consumer.Listener += new MessageListener(msg =>
                 {
-                    var bodyMsg = new ActiveMessageContent(text.Text);
-                    action?.Invoke(bodyMsg);
-                }
-            });
+                    if (msg is ITextMessage text)
+                    {
+                        var bodyMsg = new ActiveMessageContent(text.Text);
+                        action?.Invoke(bodyMsg);
+                    }
+                });
+            }
         }
 
     }

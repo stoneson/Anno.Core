@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net6.0;net461;net451</TargetFrameworks>
+    <SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net451'">

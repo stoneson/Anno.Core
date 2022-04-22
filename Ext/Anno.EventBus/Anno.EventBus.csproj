@@ -9,6 +9,7 @@
 		<Description>Eventbus Support  InMemory,Kafka,RabbitMQ and ActiveMQ</Description>
 		<!--<PackageId>Anno.LRUCache</PackageId>-->
 		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
+		<PackageTags>Kafka;RabbitMQ;librdkafka;ActiveMQ;EventBus</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

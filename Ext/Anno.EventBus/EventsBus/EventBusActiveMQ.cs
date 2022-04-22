@@ -58,7 +58,7 @@ namespace Anno.EventBus
         }
         public EventBusActiveMQ(string config)
         {
-            var ca = new Executor.Rabbit.RabbitMQChannelAdapter();
+            var ca = new Executor.Active.ActiveMQChannelAdapter();
             producerChannel = ca.GetProducer(config) as Executor.Active.ActiveMQProducer;
             subscribeChannel = ca.GetSubscribe(config) as Executor.Active.ActiveMQConsumer;
         }

@@ -58,7 +58,7 @@ namespace Anno.EventBus
         }
         public EventBusKafka(string config)
         {
-            var ca = new Executor.Rabbit.RabbitMQChannelAdapter();
+            var ca = new Executor.Kafka.KafkaChannelAdapter ();
             producerChannel = ca.GetProducer(config) as Executor.Kafka.KafkaProducer;
             subscribeChannel = ca.GetSubscribe(config) as Executor.Kafka.KafkaConsumer;
         }
