@@ -10,6 +10,8 @@ using Anno.Const;
 namespace ConsoleTest
 {
     using Anno.Rpc.Client;
+    using Anno.Rpc.Storage;
+
     public class GrpcTest
     {
         public void Handle()
@@ -91,8 +93,36 @@ namespace ConsoleTest
             Task.WaitAll(ts.ToArray());
         }
 
+        /// <summary>
+        /// 修改服务权重
+        /// </summary>
+        public void Handle8()
+        {
+            Init();
+        To:
+            Console.Write("请输入权重：");
+            long.TryParse(Console.ReadLine(), out long weight);
+            Dictionary<string, string> input = new Dictionary<string, string>();
+            input[StorageCommand.COMMAND] = StorageCommand.ANNOMICROSERVICE;
+            input["ip"] = "127.0.0.1";
+            input["port"] = "6659";
+            input["weight"] = weight.ToString();
+            StorageEngine.Invoke(input);
+            for (int i = 0; i < 10; i++)
+            {
+                Dictionary<string, string> inputx = new Dictionary<string, string>();
+                inputx.Add("channel", "Anno.Plugs.HelloWorld");
+                inputx.Add("router", "HelloWorldTask");
+                inputx.Add("method", "TaskActionResult");
+                var x = Connector.BrokerDns(inputx);
+                Console.WriteLine(x);
+                Task.Delay(1000).Wait();
+            }
+            goto To;
+        }
         void Init()
         {
+            DefaultConfigManager.SetDefaultConnectionPool(100, Environment.ProcessorCount * 2, 50);
             //DefaultConfigManager.SetDefaultConnectionPool(new ConnectionPoolConfiguration() {
             //    MaxActive=1000,
             //    MaxIdle=100,

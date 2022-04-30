@@ -319,7 +319,7 @@ namespace Anno.Rpc.Client
         /// <returns></returns>
         static MicroCache Single(string channel)
         {
-            var ms = _microCaches.FindAll(m => m.Tags.Exists(t => t == channel));
+            var ms = _microCaches.FindAll(m => m.Tags.Exists(t => t == channel && m.Mi.Weight > 0));
             //if (ms == null || !ms.Any())
             //    ms = _microCaches.FindAll(m => m.Mi.Nickname == channel);
             Random rd = new Random(Guid.NewGuid().GetHashCode());
