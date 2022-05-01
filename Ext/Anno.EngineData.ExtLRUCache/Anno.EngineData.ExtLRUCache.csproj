@@ -8,7 +8,7 @@
     <Product>Anno.EngineData.Cache</Product>
     <Description>Cache</Description>
     <!--<PackageId>Anno.EngineData.Cache</PackageId>-->
-	  <PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
+	  <PackageId>$(PackagePrefix).Anno.EngineData.Cache</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

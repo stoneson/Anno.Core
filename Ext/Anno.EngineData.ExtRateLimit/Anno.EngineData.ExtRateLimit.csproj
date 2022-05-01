@@ -9,7 +9,7 @@
 		<Product>Anno.EngineData.RateLimit</Product>
 		<Description>RateLimit</Description>
 		<!--<PackageId>Anno.EngineData.RateLimit</PackageId>-->
-		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
+		<PackageId>$(PackagePrefix).Anno.EngineData.RateLimit</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

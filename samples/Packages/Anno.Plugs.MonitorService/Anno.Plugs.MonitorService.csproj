@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>$(StandardTfms);net461</TargetFrameworks>
 		<Version>$(Version)</Version>
-		<PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>
+		<!--<PackageProjectUrl>https://github.com/duyanming/Viper</PackageProjectUrl>-->
 		<Authors>Du Yanming</Authors>
 		<Company>Du Yanming</Company>
 	</PropertyGroup>
