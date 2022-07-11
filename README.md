@@ -7,7 +7,7 @@
 
 [在线演示](http://49.232.112.70) :http://49.232.112.70
 
-[示例项目](https://github.com/duyanming/Viper) :https://github.com/duyanming/Viper
+[示例项目](https://gitee.com/stoneson/Viper) :https://gitee.com/stoneson/Viper
 
 ## 🎄Nuget 基础
 
