@@ -5,8 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Ext\Anno.EngineData.ATransaction\Anno.EngineData.ATransaction.csproj" />
-		<ProjectReference Include="..\..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
+	  <ProjectReference Include="..\..\..\src\Anno.Core\Anno.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.1.1">

@@ -10,7 +10,6 @@
 	  <PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Anno.EngineData\Anno.EngineData.csproj" />
     <ProjectReference Include="..\Anno.Rpc.Client\Anno.Rpc.ClientGrpc.csproj" />
   </ItemGroup>
 </Project>

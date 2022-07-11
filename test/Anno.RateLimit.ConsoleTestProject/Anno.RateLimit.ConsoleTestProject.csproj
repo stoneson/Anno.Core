@@ -6,8 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Ext\Anno.RateLimit\Anno.RateLimit.csproj" />
-    <ProjectReference Include="..\..\src\Anno.Log\Anno.Log.csproj" />
+    <ProjectReference Include="..\..\src\Anno.Core\Anno.Core.csproj" />
   </ItemGroup>
 
 </Project>

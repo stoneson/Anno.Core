@@ -10,21 +10,23 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Castle.Core" Version="4.4.1" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<Compile Include="..\Anno.Rpc.Client.DynamicProxy\*.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
 		<ProjectReference Include="..\..\src\Core\Grpc\Anno.Rpc.Client\Anno.Rpc.ClientGrpc.csproj" />
 	</ItemGroup>
 
-	<ItemGroup  Condition="'$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net461'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net461'">
 		<!--<Reference Include="System" />
 		<Reference Include="Microsoft.CSharp" />
 		<Reference Include="System.Configuration" />-->
 		<Reference Include="System.ServiceModel" />
+		<PackageReference Include="Castle.Core" Version="4.4.1" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' ">
+		<PackageReference Include="Castle.Core" Version="5.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>

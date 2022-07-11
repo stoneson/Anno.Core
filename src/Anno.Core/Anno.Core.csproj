@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>$(StandardTfms);net461</TargetFrameworks>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>Du yanming</Authors>
+		<Company>Du yanming</Company>
+		<Product>Anno 数据处理引擎</Product>
+		<Description>分布式开发框架:数据处理器,配置,依赖注入,日志,定时任务管理器,令牌桶、漏桶限流组件,缓存</Description>
+		<PackageId>$(PackagePrefix).$(AssemblyName)</PackageId>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="SysInfo\ConnectorWatch.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="Autofac" Version="5.2.0" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="Autofac" Version="4.9.4" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+		<Reference Include="System" />
+		<Reference Include="System.Runtime.Serialization" />
+		<PackageReference Include="Autofac" Version="3.5.2" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net40' OR '$(TargetFramework)' == 'net45' OR '$(TargetFramework)' == 'net461'">
+		<Reference Include="System" />
+		<Reference Include="Microsoft.CSharp" />
+		<Reference Include="System.Configuration" />
+		<Reference Include="System.ServiceModel" />
+		<Reference Include="System.ServiceModel.Web" />
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1'">
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Autofac" Version="6.4.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Const\" />
+	  <Folder Include="Log\" />
+	</ItemGroup>
+</Project>

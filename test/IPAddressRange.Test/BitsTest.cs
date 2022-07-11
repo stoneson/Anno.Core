@@ -1,6 +1,6 @@
 ﻿using System;
-using NetTools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NetTools;
 
 [NUnit.Framework.TestFixture]
 public class BitsTest

@@ -15,10 +15,9 @@
 		<PackageReference Include="LiteDB" Version="4.1.4" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' != 'net40'">
-		<PackageReference Include="LiteDB" Version="5.0.11" />
+		<PackageReference Include="LiteDB" Version="5.0.12" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\Anno.Log\Anno.Log.csproj" />
 		<ProjectReference Include="..\Anno.Rpc.Client\Anno.Rpc.Client.csproj" />
 	</ItemGroup>
 </Project>

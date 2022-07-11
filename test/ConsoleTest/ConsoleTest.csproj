@@ -25,11 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Ext\Anno.EventBus\Anno.EventBus.csproj" />
-    <ProjectReference Include="..\..\Ext\Anno.LRUCache\Anno.LRUCache.csproj" />
-    <ProjectReference Include="..\..\Ext\Anno.RateLimit\Anno.RateLimit.csproj" />
     <ProjectReference Include="..\..\samples\Packages\HelloWorldDto\HelloWorldDto.csproj" />
-    <ProjectReference Include="..\..\src\Anno.CronNET\Anno.CronNET.csproj" />
-    <ProjectReference Include="..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
     <ProjectReference Include="..\..\src\Core\Anno.Rpc.Server\Anno.Rpc.Server.csproj" />
   </ItemGroup>
 

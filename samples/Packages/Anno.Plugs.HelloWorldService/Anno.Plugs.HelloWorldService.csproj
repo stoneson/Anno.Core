@@ -12,7 +12,7 @@
 	</ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Anno.EngineData\Anno.EngineData.csproj" />
+    <ProjectReference Include="..\..\..\src\Anno.Core\Anno.Core.csproj" />
     <ProjectReference Include="..\HelloWorldDto\HelloWorldDto.csproj" />
   </ItemGroup>
 

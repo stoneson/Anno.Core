@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Anno.EngineData.ATransaction\Anno.EngineData.ATransaction.csproj" />
+    <ProjectReference Include="..\..\src\Anno.Core\Anno.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

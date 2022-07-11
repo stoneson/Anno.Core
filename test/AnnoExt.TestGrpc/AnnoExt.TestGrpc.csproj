@@ -23,7 +23,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Ext\Anno.LRUCache\Anno.LRUCache.csproj" />
 		<ProjectReference Include="..\..\Ext\Anno.Rpc.Client.DynamicProxyGrpc\Anno.Rpc.Client.DynamicProxyGrpc.csproj" />
 	</ItemGroup>
 

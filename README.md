@@ -1,8 +1,8 @@
 # 🏡Anno 分布式微服务开发框架
 
 **Anno 是一个分布式开发框架,专注于服务治理、监控、链路追踪。RPC可选用高性能跨语言的Thrift（推荐）、Grpc。同时支持 .net core 、.net framework、java。**
-[![downloads](https://img.shields.io/nuget/dt/Anno.EngineData.svg)](https://www.nuget.org/packages/Anno.EngineData)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/duyanming/Anno.Core/master/LICENSE)
+[![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.svg)](https://www.nuget.org/packages/Vive.Anno.EngineData)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/duyanming/Vive.Anno.Core/master/LICENSE)
 
 ![Dashboard](https://z3.ax1x.com/2021/06/29/Rade3R.png)
 ![Dashboard](https://z3.ax1x.com/2021/06/29/RadaKP.png)
@@ -27,34 +27,34 @@
 
 Package name                             |Description   | Version                     | Downloads
 -----------------------------------------|--------------|-----------------------------|-------------------------
-`Anno.Const`|配置库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Const.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Const/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Const.svg)
-`Anno.Log`|日志库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Log.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Log/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Log.svg)
-`Anno.Loader`|依赖注入库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Loader.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Loader/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Loader.svg)
-`Anno.CronNET`|任务调度库 | [![NuGet](https://img.shields.io/nuget/v/Anno.CronNET.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.CronNET/) | ![downloads](https://img.shields.io/nuget/dt/Anno.CronNET.svg)
-`Anno.EngineData`|业务处理基础库 | [![NuGet](https://img.shields.io/nuget/v/Anno.EngineData.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.EngineData/) | ![downloads](https://img.shields.io/nuget/dt/Anno.EngineData.svg)
+`Vive.Anno.Const`|配置库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Const.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Const/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Const.svg)
+`Vive.Anno.Log`|日志库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Log.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Log/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Log.svg)
+`Vive.Anno.Loader`|依赖注入库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Loader.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Loader/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Loader.svg)
+`Vive.Anno.CronNET`|任务调度库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.CronNET.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.CronNET/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.CronNET.svg)
+`Vive.Anno.EngineData`|业务处理基础库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EngineData.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EngineData/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.svg)
 
 ## 🎃Nuget 通信
 
 Package name                       |Description       | Version                     | Downloads
 -----------------------------------|------------------|-----------------------------|---------------------
-`Anno.Rpc.Center`|Thrift注册中心库  | [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.Center.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.Center/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.Center.svg)
-`Anno.Rpc.Client` |Thrift客户端库| [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.Client.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.Client/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.Client.svg)
-`Anno.Rpc.Server`|Thrift Server服务库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.Server.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.Server/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.Server.svg)
-`Anno.Rpc.CenterGrpc`|Grpc注册中心库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.CenterGrpc.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.CenterGrpc/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.CenterGrpc.svg)
-`Anno.Rpc.ClientGrpc`|Grpc客户端库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.ClientGrpc.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.ClientGrpc/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.ClientGrpc.svg)
-`Anno.Rpc.ServerGrpc`|GrpcServer服务库 | [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.ServerGrpc.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.ServerGrpc/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.ServerGrpc.svg)
+`Vive.Anno.Rpc.Center`|Thrift注册中心库  | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.Center.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.Center/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.Center.svg)
+`Vive.Anno.Rpc.Client` |Thrift客户端库| [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.Client.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.Client/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.Client.svg)
+`Vive.Anno.Rpc.Server`|Thrift Server服务库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.Server.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.Server/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.Server.svg)
+`Vive.Anno.Rpc.CenterGrpc`|Grpc注册中心库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.CenterGrpc.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.CenterGrpc/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.CenterGrpc.svg)
+`Vive.Anno.Rpc.ClientGrpc`|Grpc客户端库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.ClientGrpc.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.ClientGrpc/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.ClientGrpc.svg)
+`Vive.Anno.Rpc.ServerGrpc`|GrpcServer服务库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.ServerGrpc.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.ServerGrpc/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.ServerGrpc.svg)
 
 ## 🎁Nuget 扩展
 
 Package name                           |Description     | Version                     | Downloads
 ---------------------------------------|----------------|-----------------------------|------------------------
-`Anno.EventBus`|EventBus事件总线库 | [![NuGet](https://img.shields.io/nuget/v/Anno.EventBus.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.EventBus/) | ![downloads](https://img.shields.io/nuget/dt/Anno.EventBus.svg)
-`Anno.RateLimit`|令牌桶、漏桶限流库 | [![NuGet](https://img.shields.io/nuget/v/Anno.RateLimit.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.RateLimit/) | ![downloads](https://img.shields.io/nuget/dt/Anno.RateLimit.svg)
-`Anno.EngineData.RateLimit` |Anno服务限流中间件| [![NuGet](https://img.shields.io/nuget/v/Anno.EngineData.RateLimit.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.EngineData.RateLimit/) | ![downloads](https://img.shields.io/nuget/dt/Anno.EngineData.RateLimit.svg)
-`Anno.LRUCache`|缓存库 | [![NuGet](https://img.shields.io/nuget/v/Anno.LRUCache.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.LRUCache/) | ![downloads](https://img.shields.io/nuget/dt/Anno.LRUCache.svg)
-`Anno.EngineData.Cache`|Anno服务缓存中间件 | [![NuGet](https://img.shields.io/nuget/v/Anno.EngineData.Cache.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.EngineData.Cache/) | ![downloads](https://img.shields.io/nuget/dt/Anno.EngineData.Cache.svg)
-`Anno.Plugs.MonitorService`|Anno服务监控中间件 | [![NuGet](https://img.shields.io/nuget/v/Anno.Plugs.MonitorService.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Plugs.MonitorService/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Plugs.MonitorService.svg)
-`Anno.Rpc.Client.DynamicProxy`|接口代理Anno客户端扩展 | [![NuGet](https://img.shields.io/nuget/v/Anno.Rpc.Client.DynamicProxy.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Anno.Rpc.Client.DynamicProxy/) | ![downloads](https://img.shields.io/nuget/dt/Anno.Rpc.Client.DynamicProxy.svg)
+`Vive.Anno.EventBus`|EventBus事件总线库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EventBus.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EventBus/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EventBus.svg)
+`Vive.Anno.RateLimit`|令牌桶、漏桶限流库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.RateLimit.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.RateLimit/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.RateLimit.svg)
+`Vive.Anno.EngineData.RateLimit` |Anno服务限流中间件| [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EngineData.RateLimit.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EngineData.RateLimit/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.RateLimit.svg)
+`Vive.Anno.LRUCache`|缓存库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.LRUCache.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.LRUCache/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.LRUCache.svg)
+`Vive.Anno.EngineData.Cache`|Anno服务缓存中间件 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EngineData.Cache.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EngineData.Cache/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.Cache.svg)
+`Vive.Anno.Plugs.MonitorService`|Anno服务监控中间件 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Plugs.MonitorService.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Plugs.MonitorService/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Plugs.MonitorService.svg)
+`Vive.Anno.Rpc.Client.DynamicProxy`|接口代理Anno客户端扩展 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.Client.DynamicProxy.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.Client.DynamicProxy/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.Client.DynamicProxy.svg)
 
 ## 🎂整体架构
 ![整体架构](https://s3.ax1x.com/2020/12/18/rtegcd.png)
@@ -99,7 +99,7 @@ Package name                           |Description     | Version               
       <Port>6660</Port>
       <TimeOut>120000</TimeOut>
       <Servers>
-        <dc name="Anno.Plugs.TraceService,Anno.Plugs.DLockService,Anno.Plugs.EsLogService" nickname="App001" ip="10.112.93.122" port="6659" timeout="20000" weight="1" />
+        <dc name="Vive.Anno.Plugs.TraceService,Vive.Anno.Plugs.DLockService,Vive.Anno.Plugs.EsLogService" nickname="App001" ip="10.112.93.122" port="6659" timeout="20000" weight="1" />
       </Servers>
     </configuration>
 
@@ -110,16 +110,16 @@ Package name                           |Description     | Version               
 插件式开发具体参考：
 Packages
 
-    命名空间和程序集名称相同，格式为Anno.Plugs.XXXService 例如：Anno.Plugs.HelloWorldService
+    命名空间和程序集名称相同，格式为Vive.Anno.Plugs.XXXService 例如：Vive.Anno.Plugs.HelloWorldService
 
     初始化配置    
     实现接口：IPlugsConfigurationBootstrap
 
 ```cs
-using Anno.EngineData;
+using Vive.Anno.EngineData;
 using System;
 
-namespace Anno.Plugs.HelloWorldService
+namespace Vive.Anno.Plugs.HelloWorldService
 {
     /// <summary>
     /// 插件启动引导器
@@ -168,10 +168,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Anno.Plugs.HelloWorldService
+namespace Vive.Anno.Plugs.HelloWorldService
 {
-    using Anno.Const.Attribute;
-    using Anno.EngineData;
+    using Vive.Anno.Const.Attribute;
+    using Vive.Anno.EngineData;
     using HelloWorldDto;
     using System.ComponentModel.DataAnnotations;
 
@@ -183,7 +183,7 @@ namespace Anno.Plugs.HelloWorldService
             Dictionary<string, string> input = new Dictionary<string, string>();
             input.Add("vname", name);
             input.Add("vage", age.ToString());
-            var soEasyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<string>>(this.InvokeProcessor("Anno.Plugs.SoEasy", "AnnoSoEasy", "SayHi", input)).OutputData;
+            var soEasyMsg = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<string>>(this.InvokeProcessor("Vive.Anno.Plugs.SoEasy", "AnnoSoEasy", "SayHi", input)).OutputData;
             return new { HelloWorldViperMsg = $"{name}你好啊，今年{age}岁了", SoEasyMsg = soEasyMsg };
         }
     
@@ -199,7 +199,7 @@ namespace Anno.Plugs.HelloWorldService
             Dictionary<string, string> input = new Dictionary<string, string>();
             input.Add("productName", productName);
             input.Add("number", number.ToString());
-            var product = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<ProductDto>>(this.InvokeProcessor("Anno.Plugs.SoEasy", "AnnoSoEasy", "BuyProduct", input)).OutputData;
+            var product = Newtonsoft.Json.JsonConvert.DeserializeObject<ActionResult<ProductDto>>(this.InvokeProcessor("Vive.Anno.Plugs.SoEasy", "AnnoSoEasy", "BuyProduct", input)).OutputData;
             product.CountryOfOrigin = $"中国北京中转--{ product.CountryOfOrigin}";
             return product;
         }       
@@ -225,7 +225,7 @@ namespace Anno.Plugs.HelloWorldService
       <!--权重-->
       <Weight>1</Weight>
       <!--功能--> 
-      <FuncName>Anno.Plugs.LogicService,Anno.Plugs.TraceService</FuncName>
+      <FuncName>Vive.Anno.Plugs.LogicService,Vive.Anno.Plugs.TraceService</FuncName>
       <!--忽略的功能 Trace,Logic-->
       <IgnoreFuncName></IgnoreFuncName>
       <!--超时时间毫秒-->
@@ -234,7 +234,7 @@ namespace Anno.Plugs.HelloWorldService
       <Ts Ip="10.112.93.122" Port="6660"/>
       <IocDll>
         <!-- IOC 仓储、领域-->
-        <Assembly>Anno.Repository</Assembly>
+        <Assembly>Vive.Anno.Repository</Assembly>
       </IocDll>
       <appSettings>
        

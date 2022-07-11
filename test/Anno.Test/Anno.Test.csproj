@@ -19,7 +19,6 @@
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\src\Anno.CronNET\Anno.CronNET.csproj" />
 		<ProjectReference Include="..\..\src\Core\Anno.Rpc.Client\Anno.Rpc.Client.csproj" />
 	</ItemGroup>
 

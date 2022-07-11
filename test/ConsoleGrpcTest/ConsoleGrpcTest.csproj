@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Anno.Core\Anno.Core.csproj" />
     <ProjectReference Include="..\..\src\Core\Grpc\Anno.Rpc.Client\Anno.Rpc.ClientGrpc.csproj" />
   </ItemGroup>
 

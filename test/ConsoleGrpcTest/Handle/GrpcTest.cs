@@ -10,6 +10,8 @@ using Anno.Const;
 namespace ConsoleGrpcTest
 {
     using Anno.Rpc.Client;
+    using Anno.Rpc.Storage;
+
     public class GrpcTest
     {
         public void Handle()
