@@ -13,7 +13,7 @@
 
 Package name                             |Description   | Version                     | Downloads
 -----------------------------------------|--------------|-----------------------------|-------------------------
-`Vive.Anno.Core`|核心库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Const.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Core/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Core.svg)
+`Vive.Anno.Core`|核心库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Core.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Core/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Core.svg)
 
 ## 🎃Nuget 通信
 
