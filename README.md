@@ -4,20 +4,6 @@
 [![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.svg)](https://www.nuget.org/packages/Vive.Anno.EngineData)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/duyanming/Vive.Anno.Core/master/LICENSE)
 
-![Dashboard](https://z3.ax1x.com/2021/06/29/Rade3R.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RadaKP.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RawXSs.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/Ra0FfJ.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RadBVS.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RadWrV.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RadXqK.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RawPxI.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RaweIg.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RawhQI.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/Ra0tnP.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/Ra0ocR.png)
-![Dashboard](https://z3.ax1x.com/2021/06/29/RaBkE8.png)
-
 
 [在线演示](http://49.232.112.70) :http://49.232.112.70
 
@@ -27,11 +13,7 @@
 
 Package name                             |Description   | Version                     | Downloads
 -----------------------------------------|--------------|-----------------------------|-------------------------
-`Vive.Anno.Const`|配置库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Const.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Const/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Const.svg)
-`Vive.Anno.Log`|日志库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Log.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Log/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Log.svg)
-`Vive.Anno.Loader`|依赖注入库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Loader.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Loader/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Loader.svg)
-`Vive.Anno.CronNET`|任务调度库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.CronNET.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.CronNET/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.CronNET.svg)
-`Vive.Anno.EngineData`|业务处理基础库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EngineData.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EngineData/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.svg)
+`Vive.Anno.Core`|核心库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Const.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Core/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Core.svg)
 
 ## 🎃Nuget 通信
 
@@ -49,10 +31,6 @@ Package name                       |Description       | Version                 
 Package name                           |Description     | Version                     | Downloads
 ---------------------------------------|----------------|-----------------------------|------------------------
 `Vive.Anno.EventBus`|EventBus事件总线库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EventBus.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EventBus/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EventBus.svg)
-`Vive.Anno.RateLimit`|令牌桶、漏桶限流库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.RateLimit.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.RateLimit/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.RateLimit.svg)
-`Vive.Anno.EngineData.RateLimit` |Anno服务限流中间件| [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EngineData.RateLimit.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EngineData.RateLimit/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.RateLimit.svg)
-`Vive.Anno.LRUCache`|缓存库 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.LRUCache.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.LRUCache/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.LRUCache.svg)
-`Vive.Anno.EngineData.Cache`|Anno服务缓存中间件 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.EngineData.Cache.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.EngineData.Cache/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.EngineData.Cache.svg)
 `Vive.Anno.Plugs.MonitorService`|Anno服务监控中间件 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Plugs.MonitorService.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Plugs.MonitorService/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Plugs.MonitorService.svg)
 `Vive.Anno.Rpc.Client.DynamicProxy`|接口代理Anno客户端扩展 | [![NuGet](https://img.shields.io/nuget/v/Vive.Anno.Rpc.Client.DynamicProxy.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Vive.Anno.Rpc.Client.DynamicProxy/) | ![downloads](https://img.shields.io/nuget/dt/Vive.Anno.Rpc.Client.DynamicProxy.svg)
 
@@ -65,7 +43,7 @@ Package name                           |Description     | Version               
 
 　　2、微服务：AnnoService（可以是多个服务例如：订单服务A、库存服务B、支付服务C、用户服务D）
 
-　　3、ApiGateway：[参考Viper](https://github.com/duyanming/Viper)
+　　3、ApiGateway：[参考Viper](https://gitee.com/stoneson/Viper)
 　　
 # 📢主要功能
 
@@ -245,4 +223,4 @@ namespace Vive.Anno.Plugs.HelloWorldService
 
 # 🏄网关
 
-[参考Viper](https://github.com/duyanming/Viper)
+[参考Viper](https://gitee.com/stoneson/Viper)
